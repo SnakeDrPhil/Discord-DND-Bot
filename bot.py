@@ -24,6 +24,8 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 # List of cog modules to load
 COGS = [
     "src.bot.cogs.general",
+    "src.bot.cogs.character",
+    "src.bot.cogs.leveling",
 ]
 
 
