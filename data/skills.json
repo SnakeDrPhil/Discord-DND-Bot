@@ -1,0 +1,1181 @@
+[
+  {
+    "id": "warrior_whirlwind_attack",
+    "class": "warrior",
+    "name": "Whirlwind Attack",
+    "type": "slash",
+    "cost": 3,
+    "resource": "sp",
+    "target": "enemies_3",
+    "effect": "Deals moderate damage to three nearby enemies.",
+    "damage_multiplier": 0.8,
+    "max_targets": 3,
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_armor_up",
+    "class": "warrior",
+    "name": "Armor Up",
+    "type": "buff",
+    "cost": 2,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Increases Defense by 25% for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "defense_up",
+        "value": 25,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_counterattack",
+    "class": "warrior",
+    "name": "Counterattack",
+    "type": "parry",
+    "cost": 3,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Reflects 50% of damage taken back to the attacker.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "reflect",
+        "value": 50,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_mighty_roar",
+    "class": "warrior",
+    "name": "Mighty Roar",
+    "type": "debuff",
+    "cost": 2,
+    "resource": "sp",
+    "target": "all_enemies",
+    "effect": "Reduces enemies' strength by 15% for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": null,
+    "status_effects": [
+      {
+        "type": "strength_down",
+        "value": 15,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_ground_slam",
+    "class": "warrior",
+    "name": "Ground Slam",
+    "type": "blunt",
+    "cost": 3,
+    "resource": "sp",
+    "target": "enemies_3",
+    "effect": "Deals damage in a cone to three enemies.",
+    "damage_multiplier": 0.9,
+    "max_targets": 3,
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_shield_bash",
+    "class": "warrior",
+    "name": "Shield Bash",
+    "type": "blunt",
+    "cost": 3,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "Deals damage based on endurance with a 25% chance to stun for 1 turn.",
+    "damage_multiplier": 1.0,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "stun",
+        "chance": 25,
+        "duration": 1
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_battle_cry",
+    "class": "warrior",
+    "name": "Battle Cry",
+    "type": "buff",
+    "cost": 2,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Increases strength by 20% for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "strength_up",
+        "value": 20,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_defensive_stance",
+    "class": "warrior",
+    "name": "Defensive Stance",
+    "type": "buff",
+    "cost": 3,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Reduces damage taken by 30% for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "damage_reduction",
+        "value": 30,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_rampage",
+    "class": "warrior",
+    "name": "Rampage",
+    "type": "slash",
+    "cost": 4,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "Deals 3 slashes, each dealing +20% damage.",
+    "damage_multiplier": 1.2,
+    "hit_count": 3,
+    "max_targets": 1,
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "warrior_tactical_retreat",
+    "class": "warrior",
+    "name": "Tactical Retreat",
+    "type": "buff",
+    "cost": 3,
+    "resource": "sp",
+    "target": "self",
+    "effect": "50% chance to avoid damage for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "evasion",
+        "chance": 50
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_shadow_step",
+    "class": "rogue",
+    "name": "Shadow Step",
+    "type": "weapon_based",
+    "cost": 3,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "Instantly teleport behind the enemy, striking them twice. Gain 20% dodge chance at the end of your turn.",
+    "damage_multiplier": 1.0,
+    "hit_count": 2,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "dodge_up",
+        "value": 20,
+        "unit": "percent",
+        "duration": 1
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_dagger_throw",
+    "class": "rogue",
+    "name": "Dagger Throw",
+    "type": "stab",
+    "cost": 2,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "25% chance to apply bleed, causing damage for 2 turns.",
+    "damage_multiplier": 0.8,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "bleed",
+        "chance": 25,
+        "duration": 2
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_silent_kill",
+    "class": "rogue",
+    "name": "Silent Kill",
+    "type": "weapon_based",
+    "cost": 4,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "Deals 200% damage to enemies below 5% HP.",
+    "damage_multiplier": 2.0,
+    "max_targets": 1,
+    "condition": "target_below_5_percent_hp",
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_disarm_target",
+    "class": "rogue",
+    "name": "Disarm Target",
+    "type": "ability",
+    "cost": 2,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "The rogue disarms the target, preventing them from using weapon-based attacks for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "disarm"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_vanish",
+    "class": "rogue",
+    "name": "Vanish",
+    "type": "skill_buff",
+    "cost": 3,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Become untargetable for 1 turn. +50% attack damage on player's next turn for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "untargetable",
+        "duration": 1
+      },
+      {
+        "type": "damage_up",
+        "value": 50,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_backstab",
+    "class": "rogue",
+    "name": "Backstab",
+    "type": "stab",
+    "cost": 4,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "Deals 150% damage to targets affected by bleed.",
+    "damage_multiplier": 1.5,
+    "max_targets": 1,
+    "condition": "target_has_bleed",
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_cloaked_in_shadows",
+    "class": "rogue",
+    "name": "Cloaked in Shadows",
+    "type": "skill_buff",
+    "cost": 2,
+    "resource": "sp",
+    "target": "self",
+    "effect": "+40% dodge chance for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "dodge_up",
+        "value": 40,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_smoke_bomb",
+    "class": "rogue",
+    "name": "Smoke Bomb",
+    "type": "skill",
+    "cost": 3,
+    "resource": "sp",
+    "target": "all",
+    "effect": "Blinds both you and enemies, skipping two turns.",
+    "damage_multiplier": null,
+    "max_targets": null,
+    "status_effects": [
+      {
+        "type": "blind",
+        "duration": 2,
+        "affects": "all"
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_quick_escape",
+    "class": "rogue",
+    "name": "Quick Escape",
+    "type": "skill",
+    "cost": 5,
+    "resource": "sp",
+    "target": "self",
+    "effect": "30% chance to escape from battle.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "flee",
+        "chance": 30
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "rogue_grappling_hook",
+    "class": "rogue",
+    "name": "Grappling Hook",
+    "type": "skill",
+    "cost": 3,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Move to elevated positions, avoiding melee attacks for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "melee_immune"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "mage_frost_nova",
+    "class": "mage",
+    "name": "Frost Nova",
+    "type": "ice_spell",
+    "cost": 6,
+    "resource": "mana",
+    "target": "all_enemies",
+    "effect": "Deals damage and slows nearby enemies for (Based on Main Stat) turns.",
+    "damage_multiplier": 0.8,
+    "max_targets": null,
+    "status_effects": [
+      {
+        "type": "slow"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "mage_fire_wall",
+    "class": "mage",
+    "name": "Fire Wall",
+    "type": "fire_spell",
+    "cost": 8,
+    "resource": "mana",
+    "target": "all_enemies",
+    "effect": "Burn damage to enemies in melee range for (Based on Main Stat) turns.",
+    "damage_multiplier": 0.6,
+    "max_targets": null,
+    "status_effects": [
+      {
+        "type": "burn"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "mage_mana_shield",
+    "class": "mage",
+    "name": "Mana Shield",
+    "type": "buff",
+    "cost": 5,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Absorbs damage for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "absorb"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "mage_illusion",
+    "class": "mage",
+    "name": "Illusion",
+    "type": "spell",
+    "cost": 4,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Diverts attacks to an illusion for (Based on Main Stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "illusion"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "mage_arcane_burst",
+    "class": "mage",
+    "name": "Arcane Burst",
+    "type": "spell",
+    "cost": 7,
+    "resource": "mana",
+    "target": "enemies_3",
+    "effect": "Deals moderate damage to three enemies.",
+    "damage_multiplier": 0.9,
+    "max_targets": 3,
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "mage_fireball",
+    "class": "mage",
+    "name": "Fireball",
+    "type": "fire_spell",
+    "cost": 6,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Deals high damage, and has a 30% chance to burn the target for (Based on Main Stat) turns.",
+    "damage_multiplier": 1.3,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "burn",
+        "chance": 30
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "mage_ice_spike",
+    "class": "mage",
+    "name": "Ice Spike",
+    "type": "ice_spell",
+    "cost": 5,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "20% chance to freeze the target for (Based on Main Stat) turns.",
+    "damage_multiplier": 1.0,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "freeze",
+        "chance": 20
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "mage_magic_missile",
+    "class": "mage",
+    "name": "Magic Missile",
+    "type": "spell",
+    "cost": 3,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Low damage but cannot miss.",
+    "damage_multiplier": 0.5,
+    "max_targets": 1,
+    "auto_hit": true,
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "mage_teleportation",
+    "class": "mage",
+    "name": "Teleportation",
+    "type": "skill_buff",
+    "cost": 4,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Skips 1 enemy turn.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "skip_turn",
+        "duration": 1
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "mage_elemental_burst",
+    "class": "mage",
+    "name": "Elemental Burst",
+    "type": "spell",
+    "cost": 9,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Random elemental effect. Guaranteed to cause the element's effect. (fire=burn, ice=slow, lightning=stun).",
+    "damage_multiplier": 1.1,
+    "max_targets": 1,
+    "random_element": true,
+    "status_effects": [
+      {
+        "type": "random_element",
+        "chance": 100
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_concentrated_shot",
+    "class": "ranger",
+    "name": "Concentrated Shot",
+    "type": "skill",
+    "cost": 4,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Deals double damage on the next shot.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "next_attack_bonus",
+        "value": 100,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_trap_setting",
+    "class": "ranger",
+    "name": "Trap Setting",
+    "type": "skill",
+    "cost": 3,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "Set a trap with a 50% chance to deal low damage and immobilize an enemy, skipping that enemy's turn.",
+    "damage_multiplier": 0.4,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "immobilize",
+        "chance": 50
+      },
+      {
+        "type": "skip_turn",
+        "chance": 50,
+        "duration": 1
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_natures_grasp",
+    "class": "ranger",
+    "name": "Nature's Grasp",
+    "type": "skill",
+    "cost": 3,
+    "resource": "sp",
+    "target": "all_enemies",
+    "effect": "Summons vines to slow all enemies present.",
+    "damage_multiplier": null,
+    "max_targets": null,
+    "status_effects": [
+      {
+        "type": "slow"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_multi_shot",
+    "class": "ranger",
+    "name": "Multi-Shot",
+    "type": "skill",
+    "cost": 3,
+    "resource": "sp",
+    "target": "single_enemy",
+    "effect": "Fires two arrows at one target, each dealing moderate damage.",
+    "damage_multiplier": 0.8,
+    "hit_count": 2,
+    "max_targets": 1,
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_beast_companion",
+    "class": "ranger",
+    "name": "Beast Companion",
+    "type": "skill",
+    "cost": 4,
+    "resource": "sp",
+    "target": "summon",
+    "effect": "Summon a temporary animal companion to attack. Animal damage (Based on Main Stat). Animal lasts for (Based on Main Stat) turns. Cannot be attacked.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "summon_companion",
+        "untargetable": true
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_natures_karma",
+    "class": "ranger",
+    "name": "Nature's Karma",
+    "type": "skill_buff",
+    "cost": 4,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Deal 150% damage when attacking enemies affected by slow. Lasts for (Based on Main Stat) turns.",
+    "damage_multiplier": 1.5,
+    "max_targets": 1,
+    "condition": "target_has_slow",
+    "status_effects": [
+      {
+        "type": "conditional_damage_up",
+        "value": 150,
+        "condition": "slow"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_hawkeye",
+    "class": "ranger",
+    "name": "Hawkeye",
+    "type": "skill_buff",
+    "cost": 2,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Increases critical hit chance by 20% for your next attack.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "crit_up",
+        "value": 20,
+        "unit": "percent",
+        "duration": 1
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_eagle_eye",
+    "class": "ranger",
+    "name": "Eagle Eye",
+    "type": "skill",
+    "cost": 2,
+    "resource": "sp",
+    "target": "self",
+    "effect": "The next attack deals 50% bonus damage and ignores enemy armor.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "next_attack_bonus",
+        "value": 50,
+        "unit": "percent"
+      },
+      {
+        "type": "armor_pierce",
+        "duration": 1
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_natures_shield",
+    "class": "ranger",
+    "name": "Nature's Shield",
+    "type": "skill",
+    "cost": 3,
+    "resource": "sp",
+    "target": "self",
+    "effect": "Gain +20% damage resistance for 2 turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "damage_reduction",
+        "value": 20,
+        "unit": "percent",
+        "duration": 2
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "ranger_long_shot",
+    "class": "ranger",
+    "name": "Long Shot",
+    "type": "skill",
+    "cost": 4,
+    "resource": "sp",
+    "target": "furthest_enemy",
+    "effect": "Deals 200% damage to the furthest target.",
+    "damage_multiplier": 2.0,
+    "max_targets": 1,
+    "status_effects": [],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "bard_heroic_anthem",
+    "class": "bard",
+    "name": "Heroic Anthem",
+    "type": "skill",
+    "cost": 5,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Deal moderate damage to one enemy. Stuns for (based on main stat) turns.",
+    "damage_multiplier": 0.9,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "stun"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "bard_dissonant_chord",
+    "class": "bard",
+    "name": "Dissonant Chord",
+    "type": "skill",
+    "cost": 4,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Reduces an enemy's accuracy by 50% for (based on main stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "accuracy_down",
+        "value": 50,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "bard_rallying_cry",
+    "class": "bard",
+    "name": "Rallying Cry",
+    "type": "buff",
+    "cost": 3,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Increases the damage of your next attack by 40%.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "next_attack_bonus",
+        "value": 40,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": 5
+  },
+  {
+    "id": "bard_fascinating_tune",
+    "class": "bard",
+    "name": "Fascinating Tune",
+    "type": "skill",
+    "cost": 4,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Enchants a target, causing them to take moderate damage and reducing their attack power by 15% for (based on main stat) turns.",
+    "damage_multiplier": 0.7,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "attack_down",
+        "value": 15,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "bard_ballad_of_resilience",
+    "class": "bard",
+    "name": "Ballad of Resilience",
+    "type": "buff",
+    "cost": 6,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Increases your defense by 15% for (based on main stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "defense_up",
+        "value": 15,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "bard_inspiring_tune",
+    "class": "bard",
+    "name": "Inspiring Tune",
+    "type": "skill",
+    "cost": 5,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Restores 15% of your max health immediately.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "heal",
+        "value": 15,
+        "unit": "percent_max_hp"
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "bard_charming_song",
+    "class": "bard",
+    "name": "Charming Song",
+    "type": "skill",
+    "cost": 7,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Charms one enemy for (based on main stat) turns, making them attack their allies instead of you.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "charm"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "bard_echoing_song",
+    "class": "bard",
+    "name": "Echoing Song",
+    "type": "skill",
+    "cost": 5,
+    "resource": "mana",
+    "target": "all_enemies",
+    "effect": "Deals moderate damage to all enemies, and lowers all enemies armor 25% for (based on main stat) turns.",
+    "damage_multiplier": 0.7,
+    "max_targets": null,
+    "status_effects": [
+      {
+        "type": "armor_down",
+        "value": 25,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "bard_song_shield",
+    "class": "bard",
+    "name": "Song Shield",
+    "type": "skill",
+    "cost": 8,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Absorbs damage for (based on main stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "absorb"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_blessed_strike",
+    "class": "cleric",
+    "name": "Blessed Strike",
+    "type": "skill",
+    "cost": 4,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Deals moderate damage and heals yourself for 10% of the damage dealt.",
+    "damage_multiplier": 0.9,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "lifesteal",
+        "value": 10,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_sanctuary",
+    "class": "cleric",
+    "name": "Sanctuary",
+    "type": "skill",
+    "cost": 6,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Restores 10% HP per turn for 2 turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "heal_over_time",
+        "value": 10,
+        "unit": "percent_max_hp",
+        "duration": 2
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_divine_smite",
+    "class": "cleric",
+    "name": "Divine Smite",
+    "type": "skill",
+    "cost": 5,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Deals moderate damage with a chance to stun the target for (based on main stat) turns.",
+    "damage_multiplier": 1.0,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "stun"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_healing_wave",
+    "class": "cleric",
+    "name": "Healing Wave",
+    "type": "skill",
+    "cost": 8,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Restores 25% of your max HP immediately.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "heal",
+        "value": 25,
+        "unit": "percent_max_hp"
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_aura_of_protection",
+    "class": "cleric",
+    "name": "Aura of Protection",
+    "type": "skill",
+    "cost": 5,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Reduces damage taken by 50% for (based on main stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "damage_reduction",
+        "value": 50,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_holy_light",
+    "class": "cleric",
+    "name": "Holy Light",
+    "type": "skill",
+    "cost": 7,
+    "resource": "mana",
+    "target": "single_enemy",
+    "effect": "Deals low damage to an enemy and restores 15% HP to yourself.",
+    "damage_multiplier": 0.5,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "heal",
+        "value": 15,
+        "unit": "percent_max_hp"
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_divine_shield",
+    "class": "cleric",
+    "name": "Divine Shield",
+    "type": "skill",
+    "cost": 6,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Absorb damage for (based on main stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "absorb"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_purge",
+    "class": "cleric",
+    "name": "Purge",
+    "type": "skill",
+    "cost": 3,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Cleanses 1 debuff (burn, poison, slow, stun) from yourself.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "status_effects": [
+      {
+        "type": "cleanse",
+        "count": 1
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_guiding_light",
+    "class": "cleric",
+    "name": "Guiding Light",
+    "type": "skill",
+    "cost": 4,
+    "resource": "mana",
+    "target": "all_enemies",
+    "effect": "Lowers all enemies hit chance by 50% for (based on main stat) turns.",
+    "damage_multiplier": null,
+    "max_targets": null,
+    "status_effects": [
+      {
+        "type": "accuracy_down",
+        "value": 50,
+        "unit": "percent"
+      }
+    ],
+    "duration_rule": "main_stat",
+    "unlock_level": null
+  },
+  {
+    "id": "cleric_consecrate_ground",
+    "class": "cleric",
+    "name": "Consecrate Ground",
+    "type": "skill",
+    "cost": 7,
+    "resource": "mana",
+    "target": "self",
+    "effect": "Restores 10% HP per turn for 4 turns. Single use per combat scenario.",
+    "damage_multiplier": null,
+    "max_targets": 1,
+    "once_per_combat": true,
+    "status_effects": [
+      {
+        "type": "heal_over_time",
+        "value": 10,
+        "unit": "percent_max_hp",
+        "duration": 4
+      }
+    ],
+    "duration_rule": null,
+    "unlock_level": null
+  }
+]

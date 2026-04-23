@@ -1,0 +1,22 @@
+[
+  {"level": 1, "total_xp_needed": 100},
+  {"level": 2, "total_xp_needed": 250},
+  {"level": 3, "total_xp_needed": 500},
+  {"level": 4, "total_xp_needed": 1000},
+  {"level": 5, "total_xp_needed": 1500},
+  {"level": 6, "total_xp_needed": 2000},
+  {"level": 7, "total_xp_needed": 2500},
+  {"level": 8, "total_xp_needed": 3500},
+  {"level": 9, "total_xp_needed": 4500},
+  {"level": 10, "total_xp_needed": 5500},
+  {"level": 11, "total_xp_needed": 7000},
+  {"level": 12, "total_xp_needed": 8500},
+  {"level": 13, "total_xp_needed": 10000},
+  {"level": 14, "total_xp_needed": 12000},
+  {"level": 15, "total_xp_needed": 14000},
+  {"level": 16, "total_xp_needed": 16500},
+  {"level": 17, "total_xp_needed": 19000},
+  {"level": 18, "total_xp_needed": 22000},
+  {"level": 19, "total_xp_needed": 25000},
+  {"level": 20, "total_xp_needed": 28000}
+]

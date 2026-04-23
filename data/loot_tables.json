@@ -1,0 +1,14 @@
+{
+  "goblin": [
+    {"id": "small_pouch_of_coins", "name": "Small Pouch of Coins", "type": "valuable", "gold_min": 10, "gold_max": 25, "description": "A little leather pouch filled with a handful of coins."},
+    {"id": "goblin_crafted_trinket", "name": "Goblin-Crafted Trinket", "type": "valuable", "gold_min": 5, "gold_max": 10, "description": "A crude necklace or ring made of bone or metal scraps."},
+    {"id": "rotten_meat_rations", "name": "Rotten Meat Rations", "type": "usable", "effect": "Restores 5 HP; 20% chance to cause illness, reducing stats by -1 for 2 turns.", "resource": "hp", "value": 5, "risk": {"type": "illness", "chance": 20, "stat_penalty": -1, "duration": 2}, "description": "Goblins aren't picky about their food, but their rations are barely edible."},
+    {"id": "shiny_pebble", "name": "Shiny Pebble", "type": "valuable", "gold_min": 1, "gold_max": 1, "description": "Goblins love shiny things. It has no real value but can be traded for a few coins."},
+    {"id": "cracked_health_potion", "name": "Cracked Health Potion", "type": "usable", "effect": "Restores 10 HP.", "resource": "hp", "value": 10, "description": "A poorly maintained health potion in a cracked glass bottle."}
+  ],
+  "feral_rat": [
+    {"id": "rat_pelts", "name": "Rat Pelts", "type": "valuable", "gold_min": 2, "gold_max": 5, "description": "A small, tattered pelt from a feral rat."},
+    {"id": "sharp_rat_teeth", "name": "Sharp Rat Teeth", "type": "crafting", "effect": "Can be crafted into crude jewelry or used as ingredients in some basic potions.", "description": "Broken-off teeth from a feral rat, sharp enough to be repurposed."},
+    {"id": "disease_infested_tail", "name": "Disease-Infested Tail", "type": "crafting", "gold_min": 3, "gold_max": 7, "effect": "Ingredient for poisons or curses. Can be sold for 3-7 Gold.", "description": "A foul, diseased rat tail. Too dangerous to eat, but some potion makers may have a use for it."}
+  ]
+}

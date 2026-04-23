@@ -1,0 +1,1469 @@
+[
+  {
+    "id": "enchanted_hood",
+    "name": "Enchanted Hood",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard", "cleric"]
+  },
+  {
+    "id": "mystic_circlet",
+    "name": "Mystic Circlet",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard", "cleric"]
+  },
+  {
+    "id": "arcane_cap",
+    "name": "Arcane Cap",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "sorcerers_hat",
+    "name": "Sorcerer's Hat",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "spellweavers_tiara",
+    "name": "Spellweaver's Tiara",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "holy_circlet",
+    "name": "Holy Circlet",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "sacred_hood",
+    "name": "Sacred Hood",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "divine_cap",
+    "name": "Divine Cap",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "priests_veil",
+    "name": "Priest's Veil",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "blessed_headpiece",
+    "name": "Blessed Headpiece",
+    "armor_type": "cloth",
+    "slot": "head",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric", "mage"]
+  },
+  {
+    "id": "mystic_shoulders",
+    "name": "Mystic Shoulders",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "robes_of_the_arcane",
+    "name": "Robes of the Arcane",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "spellcasters_mantle",
+    "name": "Spellcaster's Mantle",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "arcane_cloak",
+    "name": "Arcane Cloak",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "elders_shawl",
+    "name": "Elder's Shawl",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "blessed_mantle",
+    "name": "Blessed Mantle",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "sacred_shawl",
+    "name": "Sacred Shawl",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "divine_shoulders",
+    "name": "Divine Shoulders",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "holy_cloak",
+    "name": "Holy Cloak",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "priests_epaulets",
+    "name": "Priest's Epaulets",
+    "armor_type": "cloth",
+    "slot": "shoulders",
+    "ar_min": 1,
+    "ar_max": 6,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "robe_of_the_arcane",
+    "name": "Robe of the Arcane",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "elemental_robe",
+    "name": "Elemental Robe",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "enchanted_tunic",
+    "name": "Enchanted Tunic",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "sorcerers_garb",
+    "name": "Sorcerer's Garb",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "arcane_vestments",
+    "name": "Arcane Vestments",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "divine_robe",
+    "name": "Divine Robe",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "priests_tunic",
+    "name": "Priest's Tunic",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "sacred_garb",
+    "name": "Sacred Garb",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "holy_vestments",
+    "name": "Holy Vestments",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "blessed_armor_cloth",
+    "name": "Blessed Armor",
+    "armor_type": "cloth",
+    "slot": "chest",
+    "ar_min": 1,
+    "ar_max": 8,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "spellweavers_gloves",
+    "name": "Spellweaver's Gloves",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "arcane_handwraps",
+    "name": "Arcane Handwraps",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "enchanted_gloves",
+    "name": "Enchanted Gloves",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "mystic_grips",
+    "name": "Mystic Grips",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "wizards_mitts",
+    "name": "Wizard's Mitts",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "healing_gloves",
+    "name": "Healing Gloves",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "sacred_handwraps",
+    "name": "Sacred Handwraps",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric", "mage"]
+  },
+  {
+    "id": "priests_mitts",
+    "name": "Priest's Mitts",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "divine_grips",
+    "name": "Divine Grips",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "holy_gauntlets_cloth",
+    "name": "Holy Gauntlets",
+    "armor_type": "cloth",
+    "slot": "gloves",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "cloth_trousers",
+    "name": "Cloth Trousers",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["mage", "warrior"]
+  },
+  {
+    "id": "arcane_leggings",
+    "name": "Arcane Leggings",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "slacks_of_casting",
+    "name": "Slacks of Casting",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "enchanted_skirt",
+    "name": "Enchanted Skirt",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "sorcerers_pants",
+    "name": "Sorcerer's Pants",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "prayer_skirt",
+    "name": "Prayer Skirt",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "holy_trousers",
+    "name": "Holy Trousers",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "divine_leggings",
+    "name": "Divine Leggings",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "blessed_slacks",
+    "name": "Blessed Slacks",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["cleric", "mage"]
+  },
+  {
+    "id": "sacred_pants",
+    "name": "Sacred Pants",
+    "armor_type": "cloth",
+    "slot": "legs",
+    "ar_min": 1,
+    "ar_max": 7,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "soft_slippers",
+    "name": "Soft Slippers",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "enchanted_footwraps",
+    "name": "Enchanted Footwraps",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "mystic_boots",
+    "name": "Mystic Boots",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "spellcasters_shoes",
+    "name": "Spellcaster's Shoes",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage", "bard"]
+  },
+  {
+    "id": "wizards_sandals",
+    "name": "Wizard's Sandals",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["mage"]
+  },
+  {
+    "id": "sturdy_sandals",
+    "name": "Sturdy Sandals",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric", "mage"]
+  },
+  {
+    "id": "priest_shoes",
+    "name": "Priest Shoes",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "divine_footwear",
+    "name": "Divine Footwear",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "holy_boots",
+    "name": "Holy Boots",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric"]
+  },
+  {
+    "id": "blessed_slippers",
+    "name": "Blessed Slippers",
+    "armor_type": "cloth",
+    "slot": "feet",
+    "ar_min": 1,
+    "ar_max": 5,
+    "allowed_classes": ["cleric", "mage"]
+  },
+  {
+    "id": "shadow_hood",
+    "name": "Shadow Hood",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue", "ranger"]
+  },
+  {
+    "id": "leather_cap",
+    "name": "Leather Cap",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue", "ranger", "bard", "warrior"]
+  },
+  {
+    "id": "thiefs_mask",
+    "name": "Thief's Mask",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "dark_cowl",
+    "name": "Dark Cowl",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "assassins_veil",
+    "name": "Assassin's Veil",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "camouflage_cap",
+    "name": "Camouflage Cap",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger", "rogue"]
+  },
+  {
+    "id": "hunters_hood",
+    "name": "Hunter's Hood",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "leather_headband",
+    "name": "Leather Headband",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger", "bard", "warrior"]
+  },
+  {
+    "id": "beaver_hat",
+    "name": "Beaver Hat",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger", "rogue", "warrior"]
+  },
+  {
+    "id": "woodland_crown",
+    "name": "Woodland Crown",
+    "armor_type": "leather",
+    "slot": "head",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "leather_epaulettes",
+    "name": "Leather Epaulettes",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue", "ranger", "bard", "warrior"]
+  },
+  {
+    "id": "shadow_cloak",
+    "name": "Shadow Cloak",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "midnight_mantle",
+    "name": "Midnight Mantle",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "light_shoulder_armor",
+    "name": "Light Shoulder Armor",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue", "ranger", "warrior"]
+  },
+  {
+    "id": "daggerwing_shoulders",
+    "name": "Daggerwing Shoulders",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "hunters_shoulders",
+    "name": "Hunter's Shoulders",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "leather_shoulder_armor",
+    "name": "Leather Shoulder Armor",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger", "bard", "warrior"]
+  },
+  {
+    "id": "eagle_cloak",
+    "name": "Eagle Cloak",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger", "rogue", "warrior"]
+  },
+  {
+    "id": "woodland_epaulets",
+    "name": "Woodland Epaulets",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "natures_mantle",
+    "name": "Nature's Mantle",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "capes_of_melody",
+    "name": "Capes of Melody",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "poetic_epaulets",
+    "name": "Poetic Epaulets",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "harmonious_shawl",
+    "name": "Harmonious Shawl",
+    "armor_type": "leather",
+    "slot": "shoulders",
+    "ar_min": 7,
+    "ar_max": 13,
+    "allowed_classes": ["bard", "cleric"]
+  },
+  {
+    "id": "leather_tunic",
+    "name": "Leather Tunic",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["rogue", "ranger", "bard", "warrior"]
+  },
+  {
+    "id": "stealth_vest",
+    "name": "Stealth Vest",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["rogue", "ranger"]
+  },
+  {
+    "id": "shadow_armor",
+    "name": "Shadow Armor",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "weightless_garb",
+    "name": "Weightless Garb",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "black_leather_shirt",
+    "name": "Black Leather Shirt",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["rogue", "ranger"]
+  },
+  {
+    "id": "quick_leather_vest",
+    "name": "Quick Leather Vest",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["ranger", "rogue", "warrior"]
+  },
+  {
+    "id": "bear_tunic",
+    "name": "Bear Tunic",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["ranger", "rogue", "warrior"]
+  },
+  {
+    "id": "leather_armor",
+    "name": "Leather Armor",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["ranger", "bard", "rogue"]
+  },
+  {
+    "id": "woodland_jacket",
+    "name": "Woodland Jacket",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "hunters_garb",
+    "name": "Hunter's Garb",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "harmonious_tunic",
+    "name": "Harmonious Tunic",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "lyrical_robe",
+    "name": "Lyrical Robe",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "enchanted_blouse",
+    "name": "Enchanted Blouse",
+    "armor_type": "leather",
+    "slot": "chest",
+    "ar_min": 9,
+    "ar_max": 16,
+    "allowed_classes": ["bard", "mage"]
+  },
+  {
+    "id": "silent_handwraps",
+    "name": "Silent Handwraps",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue", "ranger"]
+  },
+  {
+    "id": "leather_gloves",
+    "name": "Leather Gloves",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue", "ranger", "bard"]
+  },
+  {
+    "id": "thiefs_grips",
+    "name": "Thief's Grips",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "shadowy_gauntlets",
+    "name": "Shadowy Gauntlets",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "dexterity_gloves",
+    "name": "Dexterity Gloves",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue", "ranger"]
+  },
+  {
+    "id": "hunters_gloves",
+    "name": "Hunter's Gloves",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "leather_grips",
+    "name": "Leather Grips",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger", "rogue"]
+  },
+  {
+    "id": "archery_gloves",
+    "name": "Archery Gloves",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "dexterity_gauntlets",
+    "name": "Dexterity Gauntlets",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger", "rogue"]
+  },
+  {
+    "id": "musicians_gloves",
+    "name": "Musicians' Gloves",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "melodic_mitts",
+    "name": "Melodic Mitts",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "lyrical_grips",
+    "name": "Lyrical Grips",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "performers_gloves",
+    "name": "Performer's Gloves",
+    "armor_type": "leather",
+    "slot": "gloves",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "agile_pants",
+    "name": "Agile Pants",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "shadow_trousers",
+    "name": "Shadow Trousers",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "leather_leggings",
+    "name": "Leather Leggings",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["rogue", "ranger", "bard"]
+  },
+  {
+    "id": "dark_pants",
+    "name": "Dark Pants",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["rogue", "ranger"]
+  },
+  {
+    "id": "stealthy_slacks",
+    "name": "Stealthy Slacks",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["rogue", "ranger"]
+  },
+  {
+    "id": "sturdy_trousers",
+    "name": "Sturdy Trousers",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["ranger", "bard", "warrior"]
+  },
+  {
+    "id": "wolf_leggings",
+    "name": "Wolf Leggings",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["ranger", "rogue"]
+  },
+  {
+    "id": "leather_pants",
+    "name": "Leather Pants",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["ranger", "bard"]
+  },
+  {
+    "id": "elegant_trousers",
+    "name": "Elegant Trousers",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "lyrical_pants",
+    "name": "Lyrical Pants",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "musical_slacks",
+    "name": "Musical Slacks",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "harmonious_skirt",
+    "name": "Harmonious Skirt",
+    "armor_type": "leather",
+    "slot": "legs",
+    "ar_min": 8,
+    "ar_max": 13,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "softfoot_boots",
+    "name": "Softfoot Boots",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue", "ranger", "mage"]
+  },
+  {
+    "id": "leather_shoes",
+    "name": "Leather Shoes",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue", "ranger", "bard", "mage"]
+  },
+  {
+    "id": "shadowy_footwraps",
+    "name": "Shadowy Footwraps",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "silent_treads",
+    "name": "Silent Treads",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue", "ranger"]
+  },
+  {
+    "id": "assassins_footwear",
+    "name": "Assassin's Footwear",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["rogue"]
+  },
+  {
+    "id": "travel_boots",
+    "name": "Travel Boots",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger", "rogue", "mage", "warrior"]
+  },
+  {
+    "id": "sturdy_leather_boots",
+    "name": "Sturdy Leather Boots",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger", "rogue"]
+  },
+  {
+    "id": "bandit_footwear",
+    "name": "Bandit Footwear",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger", "rogue"]
+  },
+  {
+    "id": "camouflage_shoes",
+    "name": "Camouflage Shoes",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "woodland_sandals",
+    "name": "Woodland Sandals",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["ranger"]
+  },
+  {
+    "id": "dance_shoes",
+    "name": "Dance Shoes",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "harmony_sandals",
+    "name": "Harmony Sandals",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["bard"]
+  },
+  {
+    "id": "graceful_slippers",
+    "name": "Graceful Slippers",
+    "armor_type": "leather",
+    "slot": "feet",
+    "ar_min": 6,
+    "ar_max": 10,
+    "allowed_classes": ["bard", "mage"]
+  },
+  {
+    "id": "iron_helm",
+    "name": "Iron Helm",
+    "armor_type": "heavy",
+    "slot": "head",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior", "cleric", "ranger"]
+  },
+  {
+    "id": "steel_battle_helm",
+    "name": "Steel Battle Helm",
+    "armor_type": "heavy",
+    "slot": "head",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior", "cleric", "ranger"]
+  },
+  {
+    "id": "horned_helmet",
+    "name": "Horned Helmet",
+    "armor_type": "heavy",
+    "slot": "head",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior", "ranger"]
+  },
+  {
+    "id": "spiked_helm",
+    "name": "Spiked Helm",
+    "armor_type": "heavy",
+    "slot": "head",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior", "rogue", "ranger"]
+  },
+  {
+    "id": "crest_of_valor",
+    "name": "Crest of Valor",
+    "armor_type": "heavy",
+    "slot": "head",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "steel_pauldrons",
+    "name": "Steel Pauldrons",
+    "armor_type": "heavy",
+    "slot": "shoulders",
+    "ar_min": 14,
+    "ar_max": 18,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "spiked_shoulder_guards",
+    "name": "Spiked Shoulder Guards",
+    "armor_type": "heavy",
+    "slot": "shoulders",
+    "ar_min": 14,
+    "ar_max": 18,
+    "allowed_classes": ["warrior", "rogue", "ranger"]
+  },
+  {
+    "id": "heavy_shoulder_plates",
+    "name": "Heavy Shoulder Plates",
+    "armor_type": "heavy",
+    "slot": "shoulders",
+    "ar_min": 14,
+    "ar_max": 18,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "iron_epaulets",
+    "name": "Iron Epaulets",
+    "armor_type": "heavy",
+    "slot": "shoulders",
+    "ar_min": 14,
+    "ar_max": 18,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "guardian_mantle",
+    "name": "Guardian Mantle",
+    "armor_type": "heavy",
+    "slot": "shoulders",
+    "ar_min": 14,
+    "ar_max": 18,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "plate_mail",
+    "name": "Plate Mail",
+    "armor_type": "heavy",
+    "slot": "chest",
+    "ar_min": 17,
+    "ar_max": 25,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "iron_breastplate",
+    "name": "Iron Breastplate",
+    "armor_type": "heavy",
+    "slot": "chest",
+    "ar_min": 17,
+    "ar_max": 25,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "steel_chestplate",
+    "name": "Steel Chestplate",
+    "armor_type": "heavy",
+    "slot": "chest",
+    "ar_min": 17,
+    "ar_max": 25,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "worn_cuirass",
+    "name": "Worn Cuirass",
+    "armor_type": "heavy",
+    "slot": "chest",
+    "ar_min": 17,
+    "ar_max": 25,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "battle_harness",
+    "name": "Battle Harness",
+    "armor_type": "heavy",
+    "slot": "chest",
+    "ar_min": 17,
+    "ar_max": 25,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "reinforced_gauntlets",
+    "name": "Reinforced Gauntlets",
+    "armor_type": "heavy",
+    "slot": "gloves",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "iron_fist_wraps",
+    "name": "Iron Fist Wraps",
+    "armor_type": "heavy",
+    "slot": "gloves",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "heavy_leather_gloves",
+    "name": "Heavy Leather Gloves",
+    "armor_type": "heavy",
+    "slot": "gloves",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "steel_gauntlets",
+    "name": "Steel Gauntlets",
+    "armor_type": "heavy",
+    "slot": "gloves",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "sturdy_iron_grips",
+    "name": "Sturdy Iron Grips",
+    "armor_type": "heavy",
+    "slot": "gloves",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "steel_leggings",
+    "name": "Steel Leggings",
+    "armor_type": "heavy",
+    "slot": "legs",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "iron_greaves",
+    "name": "Iron Greaves",
+    "armor_type": "heavy",
+    "slot": "legs",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior", "cleric"]
+  },
+  {
+    "id": "heavy_trousers",
+    "name": "Heavy Trousers",
+    "armor_type": "heavy",
+    "slot": "legs",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "battle_leggings",
+    "name": "Battle Leggings",
+    "armor_type": "heavy",
+    "slot": "legs",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "worn_plate_legs",
+    "name": "Worn Plate Legs",
+    "armor_type": "heavy",
+    "slot": "legs",
+    "ar_min": 14,
+    "ar_max": 20,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "heavy_boots",
+    "name": "Heavy Boots",
+    "armor_type": "heavy",
+    "slot": "feet",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "iron_footguards",
+    "name": "Iron Footguards",
+    "armor_type": "heavy",
+    "slot": "feet",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "steel_sabatons",
+    "name": "Steel Sabatons",
+    "armor_type": "heavy",
+    "slot": "feet",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior"]
+  },
+  {
+    "id": "sturdy_battle_boots",
+    "name": "Sturdy Battle Boots",
+    "armor_type": "heavy",
+    "slot": "feet",
+    "ar_min": 11,
+    "ar_max": 15,
+    "allowed_classes": ["warrior"]
+  }
+]

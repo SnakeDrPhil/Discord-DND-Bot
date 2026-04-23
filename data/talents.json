@@ -1,0 +1,212 @@
+[
+  {
+    "id": "warrior_iron_will",
+    "class": "warrior",
+    "name": "Iron Will",
+    "effect": "Resistance to stuns and slows increased by 25%.",
+    "passive_modifiers": [{"type": "status_resistance", "effects": ["stun", "slow"], "value": 25, "unit": "percent"}]
+  },
+  {
+    "id": "warrior_toughened_skin",
+    "class": "warrior",
+    "name": "Toughened Skin",
+    "effect": "Reduces physical damage taken by 10%.",
+    "passive_modifiers": [{"type": "physical_damage_reduction", "value": 10, "unit": "percent"}]
+  },
+  {
+    "id": "warrior_berserker_fury",
+    "class": "warrior",
+    "name": "Berserker Fury",
+    "effect": "Gain 5% damage for every 10% HP lost.",
+    "passive_modifiers": [{"type": "low_hp_damage_bonus", "value": 5, "per": 10, "unit": "percent"}]
+  },
+  {
+    "id": "warrior_armor_proficiency",
+    "class": "warrior",
+    "name": "Armor Proficiency",
+    "effect": "+10% defense in heavy armor.",
+    "passive_modifiers": [{"type": "armor_bonus", "condition": "heavy_armor", "value": 10, "unit": "percent"}]
+  },
+  {
+    "id": "warrior_battle_hardened",
+    "class": "warrior",
+    "name": "Battle Hardened",
+    "effect": "5 health regeneration during combat (5 per turn).",
+    "passive_modifiers": [{"type": "combat_regen", "resource": "hp", "value": 5, "per": "turn"}]
+  },
+  {
+    "id": "rogue_evasion",
+    "class": "rogue",
+    "name": "Evasion",
+    "effect": "+15% dodge chance.",
+    "passive_modifiers": [{"type": "dodge_bonus", "value": 15, "unit": "percent"}]
+  },
+  {
+    "id": "rogue_cunning_defense",
+    "class": "rogue",
+    "name": "Cunning Defense",
+    "effect": "+10% chance to avoid critical hits.",
+    "passive_modifiers": [{"type": "crit_avoidance", "value": 10, "unit": "percent"}]
+  },
+  {
+    "id": "rogue_silent_steps",
+    "class": "rogue",
+    "name": "Silent Steps",
+    "effect": "Lowers encounter/ambush rate.",
+    "passive_modifiers": [{"type": "encounter_rate_reduction", "value": 15, "unit": "percent"}]
+  },
+  {
+    "id": "rogue_thrust_mastery",
+    "class": "rogue",
+    "name": "Thrust Mastery",
+    "effect": "+25% thrust (Thrust Weapon) damage.",
+    "passive_modifiers": [{"type": "damage_bonus", "damage_type": "stab", "value": 25, "unit": "percent"}]
+  },
+  {
+    "id": "rogue_quick_reflexes",
+    "class": "rogue",
+    "name": "Quick Reflexes",
+    "effect": "+10% dodge chance after landing a hit.",
+    "passive_modifiers": [{"type": "conditional_dodge", "trigger": "after_hit", "value": 10, "unit": "percent"}]
+  },
+  {
+    "id": "mage_mana_efficiency",
+    "class": "mage",
+    "name": "Mana Efficiency",
+    "effect": "Reduces spell mana cost by 10%.",
+    "passive_modifiers": [{"type": "resource_cost_reduction", "resource": "mana", "value": 10, "unit": "percent"}]
+  },
+  {
+    "id": "mage_arcane_knowledge",
+    "class": "mage",
+    "name": "Arcane Knowledge",
+    "effect": "+5% spell damage for every 10 Intelligence.",
+    "passive_modifiers": [{"type": "stat_scaling_damage", "stat": "intelligence", "value": 5, "per": 10, "unit": "percent"}]
+  },
+  {
+    "id": "mage_elemental_resistance",
+    "class": "mage",
+    "name": "Elemental Resistance",
+    "effect": "+10% resistance to chosen element.",
+    "passive_modifiers": [{"type": "elemental_resistance", "value": 10, "unit": "percent", "choice_required": true}]
+  },
+  {
+    "id": "mage_spell_reflect",
+    "class": "mage",
+    "name": "Spell Reflect",
+    "effect": "5% chance to reflect damage.",
+    "passive_modifiers": [{"type": "reflect_chance", "value": 5, "unit": "percent"}]
+  },
+  {
+    "id": "mage_intelligent_casting",
+    "class": "mage",
+    "name": "Intelligent Casting",
+    "effect": "+10% critical spell hit chance.",
+    "passive_modifiers": [{"type": "spell_crit_bonus", "value": 10, "unit": "percent"}]
+  },
+  {
+    "id": "ranger_keen_reflexes",
+    "class": "ranger",
+    "name": "Keen Reflexes",
+    "effect": "+10% dodge chance.",
+    "passive_modifiers": [{"type": "dodge_bonus", "value": 10, "unit": "percent"}]
+  },
+  {
+    "id": "ranger_natures_companion",
+    "class": "ranger",
+    "name": "Nature's Companion",
+    "effect": "Summon an Animal companion to aid you in battle. (Damage based on main stat). Only attacks one enemy per turn.",
+    "passive_modifiers": [{"type": "passive_summon", "damage_scaling": "main_stat", "attacks_per_turn": 1}]
+  },
+  {
+    "id": "ranger_marksmanship",
+    "class": "ranger",
+    "name": "Marksmanship",
+    "effect": "Increases ranged attack damage by 25%.",
+    "passive_modifiers": [{"type": "damage_bonus", "damage_type": "ranged", "value": 25, "unit": "percent"}]
+  },
+  {
+    "id": "ranger_quick_reload",
+    "class": "ranger",
+    "name": "Quick Reload",
+    "effect": "Allows the ranger to shoot an extra basic attack at the end of the turn.",
+    "passive_modifiers": [{"type": "extra_attack", "timing": "end_of_turn", "attack_type": "basic"}]
+  },
+  {
+    "id": "ranger_stealthy_hunter",
+    "class": "ranger",
+    "name": "Stealthy Hunter",
+    "effect": "Increases damage dealt by the ranger's first attack against an enemy by 15%.",
+    "passive_modifiers": [{"type": "first_strike_bonus", "value": 15, "unit": "percent"}]
+  },
+  {
+    "id": "bard_inspiring_presence",
+    "class": "bard",
+    "name": "Inspiring Presence",
+    "effect": "Increases the effectiveness of all buffs the bard applies by 50%.",
+    "passive_modifiers": [{"type": "buff_effectiveness", "value": 50, "unit": "percent"}]
+  },
+  {
+    "id": "bard_melodic_health",
+    "class": "bard",
+    "name": "Melodic Health",
+    "effect": "Gain 5 HP for every buff cast in a turn.",
+    "passive_modifiers": [{"type": "hp_on_buff_cast", "value": 5}]
+  },
+  {
+    "id": "bard_charming_aura",
+    "class": "bard",
+    "name": "Charming Aura",
+    "effect": "10% chance to charm one enemy at the start of a combat scenario for (based on main stat) turns.",
+    "passive_modifiers": [{"type": "combat_start_charm", "chance": 10, "duration_rule": "main_stat"}]
+  },
+  {
+    "id": "bard_quick_notes",
+    "class": "bard",
+    "name": "Quick Notes",
+    "effect": "Gives the bard one additional action per turn. (extra attack, buff, skill for that turn)",
+    "passive_modifiers": [{"type": "extra_action", "value": 1}]
+  },
+  {
+    "id": "bard_fascinating_tunes",
+    "class": "bard",
+    "name": "Fascinating Tunes",
+    "effect": "Increase the duration of any song effects by 1 turn.",
+    "passive_modifiers": [{"type": "song_duration_bonus", "value": 1, "unit": "turns"}]
+  },
+  {
+    "id": "cleric_divine_protection",
+    "class": "cleric",
+    "name": "Divine Protection",
+    "effect": "Increases the effectiveness of healing spells by 25%.",
+    "passive_modifiers": [{"type": "healing_bonus", "value": 25, "unit": "percent"}]
+  },
+  {
+    "id": "cleric_sacred_resilience",
+    "class": "cleric",
+    "name": "Sacred Resilience",
+    "effect": "Gain 20% damage resistance against enemies.",
+    "passive_modifiers": [{"type": "damage_reduction", "value": 20, "unit": "percent"}]
+  },
+  {
+    "id": "cleric_faithful_recovery",
+    "class": "cleric",
+    "name": "Faithful Recovery",
+    "effect": "Automatically restores a small percentage of health (20%) at the start of each encounter.",
+    "passive_modifiers": [{"type": "encounter_start_heal", "value": 20, "unit": "percent_max_hp"}]
+  },
+  {
+    "id": "cleric_blessed_aura",
+    "class": "cleric",
+    "name": "Blessed Aura",
+    "effect": "Naturally gives the cleric +3 strength. Increases +1 per 10 levels.",
+    "passive_modifiers": [{"type": "flat_stat_bonus", "stat": "strength", "base_value": 3, "per_10_levels": 1}]
+  },
+  {
+    "id": "cleric_holy_guidance",
+    "class": "cleric",
+    "name": "Holy Guidance",
+    "effect": "Increases the cleric's blunt weapon damage by 10%.",
+    "passive_modifiers": [{"type": "damage_bonus", "damage_type": "blunt", "value": 10, "unit": "percent"}]
+  }
+]

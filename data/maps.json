@@ -1,0 +1,21 @@
+{
+  "floors": [
+    {
+      "floor": 1,
+      "name": "Floor 1",
+      "width": 7,
+      "height": 7,
+      "start": [0, 0],
+      "exit": [6, 6],
+      "tiles": [
+        ["start",  "path",    "path",    "sr",      "path",    "combat",  "path"],
+        ["path",   "wall",    "wall",    "path",    "wall",    "path",    "wall"],
+        ["sr",     "path",    "combat",  "path",    "sr",      "path",    "path"],
+        ["path",   "wall",    "path",    "wall",    "path",    "wall",    "sr"],
+        ["path",   "path",    "sr",      "path",    "combat",  "path",    "path"],
+        ["wall",   "wall",    "path",    "wall",    "path",    "wall",    "path"],
+        ["combat", "path",    "sr",      "path",    "path",    "sr",      "exit"]
+      ]
+    }
+  ]
+}
