@@ -15,6 +15,17 @@ from src.game.formulas import (
 )
 from src.utils.data_loader import get_skill_by_id, get_talent_by_id, get_xp_for_level
 
+RARITY_COLORS = {
+    "poor": discord.Color.dark_grey(),
+    "common": discord.Color.light_grey(),
+    "uncommon": discord.Color.green(),
+    "rare": discord.Color.blue(),
+    "epic": discord.Color.purple(),
+    "legendary": discord.Color.orange(),
+}
+
+EQUIPMENT_SLOTS = ["head", "shoulders", "chest", "gloves", "legs", "feet", "main_hand", "off_hand"]
+
 CLASS_COLORS = {
     "warrior": discord.Color.red(),
     "rogue": discord.Color.dark_purple(),
@@ -72,6 +83,11 @@ def help_embed() -> discord.Embed:
         value=(
             "`/stats` - View your character sheet\n"
             "`/inventory` - View your items\n"
+            "`/inspect <item>` - View item details\n"
+            "`/equip <item>` - Equip weapon or armor\n"
+            "`/unequip <slot>` - Remove equipment\n"
+            "`/sell <item>` - Sell an item for gold\n"
+            "`/use_item <item>` - Use a consumable\n"
             "`/allocate <stat> <points>` - Spend stat points"
         ),
         inline=False,
@@ -509,4 +525,129 @@ def dungeon_retreat_embed(player_name: str) -> discord.Embed:
         title="Retreated",
         description=f"**{player_name}** left the dungeon safely. All items and XP kept.",
         color=discord.Color.orange(),
+    )
+
+
+# ── Inventory / Equipment Embeds ──────────────────────────────────
+
+def _format_item_line(item_data: dict, equipped: bool = False, slot: str = None) -> str:
+    """Format a single item for inventory display."""
+    name = item_data.get("name", "Unknown")
+    rarity = item_data.get("rarity", "")
+    itype = item_data.get("type", "")
+    parts = []
+    if equipped and slot:
+        parts.append(f"[{slot.replace('_', ' ').title()}]")
+    if rarity and rarity not in ("poor", "common"):
+        parts.append(f"({rarity.capitalize()})")
+    if itype == "weapon":
+        parts.append(f"{item_data.get('damage_min', '?')}-{item_data.get('damage_max', '?')} dmg")
+    elif itype == "armor":
+        parts.append(f"{item_data.get('armor_rating', '?')} AR")
+    prefix = " ".join(parts)
+    return f"**{name}** {prefix}".strip()
+
+
+def inventory_embed(player: dict, items: list) -> discord.Embed:
+    """Show full inventory grouped by type with equipped markers."""
+    color = CLASS_COLORS.get(player["class"], discord.Color.greyple())
+    embed = discord.Embed(
+        title=f"{player['character_name']}'s Inventory",
+        color=color,
+    )
+
+    equipped_lines = []
+    weapon_lines = []
+    armor_lines = []
+    consumable_lines = []
+    other_lines = []
+
+    for item in items:
+        idata = json.loads(item["item_data"]) if isinstance(item["item_data"], str) else item["item_data"]
+        is_equipped = item.get("equipped", 0) == 1
+        slot = item.get("slot")
+
+        if is_equipped:
+            equipped_lines.append(_format_item_line(idata, True, slot))
+        elif idata.get("type") == "weapon":
+            weapon_lines.append(_format_item_line(idata))
+        elif idata.get("type") == "armor":
+            armor_lines.append(_format_item_line(idata))
+        elif item.get("item_type") == "consumable" or idata.get("category"):
+            consumable_lines.append(f"**{idata.get('name', 'Unknown')}**")
+        else:
+            other_lines.append(f"**{idata.get('name', 'Unknown')}**")
+
+    if equipped_lines:
+        embed.add_field(name="Equipped", value="\n".join(equipped_lines), inline=False)
+    if weapon_lines:
+        embed.add_field(name="Weapons", value="\n".join(weapon_lines), inline=False)
+    if armor_lines:
+        embed.add_field(name="Armor", value="\n".join(armor_lines), inline=False)
+    if consumable_lines:
+        embed.add_field(name="Consumables", value="\n".join(consumable_lines), inline=False)
+    if other_lines:
+        embed.add_field(name="Other", value="\n".join(other_lines), inline=False)
+    if not any([equipped_lines, weapon_lines, armor_lines, consumable_lines, other_lines]):
+        embed.description = "Your inventory is empty."
+
+    embed.set_footer(text=f"{len(items)}/20 slots used | Gold: {player.get('gold', 0)}")
+    return embed
+
+
+def item_inspect_embed(item_data: dict) -> discord.Embed:
+    """Detailed item view with stats, rarity color, affixes."""
+    rarity = item_data.get("rarity", "common")
+    color = RARITY_COLORS.get(rarity, discord.Color.greyple())
+    embed = discord.Embed(
+        title=item_data.get("name", "Unknown Item"),
+        color=color,
+    )
+
+    itype = item_data.get("type", "")
+    details = [f"**Type:** {itype.capitalize()}"]
+    if rarity:
+        details.append(f"**Rarity:** {rarity.capitalize()}")
+
+    if itype == "weapon":
+        details.append(f"**Damage:** {item_data.get('damage_min', '?')}-{item_data.get('damage_max', '?')}")
+        details.append(f"**Hand Type:** {item_data.get('hand_type', '?').replace('_', ' ').title()}")
+        details.append(f"**Damage Type:** {item_data.get('damage_type', '?').capitalize()}")
+        if item_data.get("casting"):
+            details.append("**Casting:** Yes (provides spell base damage)")
+    elif itype == "armor":
+        details.append(f"**Armor Rating:** {item_data.get('armor_rating', '?')}")
+        details.append(f"**Slot:** {item_data.get('slot', '?').replace('_', ' ').title()}")
+        details.append(f"**Armor Type:** {item_data.get('armor_type', '?').capitalize()}")
+        classes = item_data.get("allowed_classes", [])
+        if classes:
+            details.append(f"**Classes:** {', '.join(c.capitalize() for c in classes)}")
+    elif itype == "consumable" or item_data.get("category"):
+        if item_data.get("effect"):
+            details.append(f"**Effect:** {item_data['effect']}")
+
+    embed.description = "\n".join(details)
+
+    affixes = item_data.get("stat_affixes", [])
+    if affixes:
+        affix_lines = [f"+{a['value']} {a['stat'].capitalize()}" for a in affixes]
+        embed.add_field(name="Stat Bonuses", value="\n".join(affix_lines), inline=True)
+
+    sell = item_data.get("sell_value")
+    if sell:
+        embed.set_footer(text=f"Sell value: {sell} gold")
+
+    return embed
+
+
+def equip_embed(item_name: str, slot: str, unequipped_name: str = None) -> discord.Embed:
+    """Show equip confirmation with what was replaced."""
+    slot_display = slot.replace("_", " ").title()
+    desc = f"Equipped **{item_name}** in {slot_display}."
+    if unequipped_name:
+        desc += f"\nUnequipped **{unequipped_name}**."
+    return discord.Embed(
+        title="Equipment Changed",
+        description=desc,
+        color=discord.Color.green(),
     )

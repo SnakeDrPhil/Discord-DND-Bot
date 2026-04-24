@@ -9,9 +9,11 @@ from discord.ext import commands
 
 from src.db.models import (
     add_inventory_item,
+    count_inventory,
     create_combat_session,
     delete_combat_session,
     get_combat_session,
+    get_equipped_items,
     get_inventory,
     get_player,
     remove_inventory_item,
@@ -48,11 +50,37 @@ from src.utils.embeds import (
 
 # ── Helpers ─────────────────────────────────────────────────────────
 
+async def _inject_equipment(player: dict) -> None:
+    """Load equipped items and inject weapon/armor data into player dict."""
+    equipped = await get_equipped_items(player["id"])
+    from src.game.items import get_equipped_weapon_data, get_total_armor_rating, calc_equipment_stat_bonuses
+    weapon = get_equipped_weapon_data(equipped)
+    if weapon:
+        player["_equipped_weapon"] = weapon
+    total_ar = get_total_armor_rating(equipped)
+    # Warrior Armor Proficiency talent: +10% AR with heavy armor
+    tids = json.loads(player.get("selected_talents", "[]"))
+    if "warrior_armor_proficiency" in tids:
+        has_heavy = any(
+            (json.loads(e["item_data"]) if isinstance(e["item_data"], str) else e["item_data"]).get("armor_type") == "heavy"
+            for e in equipped
+            if (json.loads(e["item_data"]) if isinstance(e["item_data"], str) else e["item_data"]).get("type") == "armor"
+        )
+        if has_heavy:
+            total_ar = int(total_ar * 1.10)
+    player["_total_ar"] = total_ar
+    bonuses = calc_equipment_stat_bonuses(equipped)
+    for stat, bonus in bonuses.items():
+        if stat in player:
+            player[stat] = player[stat] + bonus
+
+
 async def _get_combat_context(discord_id: str):
-    """Fetch player and combat session. Returns (player, session) or (player, None)."""
+    """Fetch player and combat session, with equipment injected. Returns (player, session) or (player, None)."""
     player = await get_player(discord_id)
     if not player:
         return None, None
+    await _inject_equipment(player)
     session = await get_combat_session(player["id"])
     return player, session
 
@@ -141,15 +169,33 @@ async def _tick_dungeon_effects_after_combat(player):
 async def _send_result(interaction, player, state, result, flee_damage=0, is_button=False):
     """Send the combat result embed."""
     if result == "victory":
-        rewards = calculate_rewards(state["enemies"], state["damage_taken"])
+        floor = player.get("current_floor", 1) or 1
+        rewards = calculate_rewards(
+            state["enemies"], state["damage_taken"],
+            floor=floor, player_class=player["class"])
         updated_player, events = await grant_xp(str(player["discord_id"]), rewards["xp"])
         if rewards["gold"] > 0:
             await update_player(str(player["discord_id"]),
                                 gold=player["gold"] + rewards["gold"])
-        # Add usable loot to inventory
+        # Add loot to inventory
+        from src.game.constants import INVENTORY_CAPACITY
+        from src.game.items import get_sell_price
+        inv_count = await count_inventory(player["id"])
+        overflow_gold = 0
         for item in rewards["loot"]:
-            if item.get("type") == "usable":
-                await add_inventory_item(player["id"], "consumable", item["id"], item)
+            if inv_count < INVENTORY_CAPACITY:
+                item_type = item.get("type", "consumable")
+                if item_type == "usable":
+                    item_type = "consumable"
+                item_id = item.get("base_id", item.get("id", "unknown"))
+                await add_inventory_item(player["id"], item_type, item_id, item)
+                inv_count += 1
+            else:
+                overflow_gold += get_sell_price(item)
+        if overflow_gold > 0:
+            rewards["gold"] += overflow_gold
+            await update_player(str(player["discord_id"]),
+                                gold=player["gold"] + rewards["gold"])
         embed = combat_victory_embed(
             player["character_name"], rewards["xp"], rewards["perfect"],
             rewards["gold"], rewards["loot"], events,
@@ -580,6 +626,8 @@ class Combat(commands.Cog):
             return await interaction.response.send_message(
                 embed=error_embed("No character found. Use `/create` first."), ephemeral=True)
 
+        await _inject_equipment(player)
+
         session = await get_combat_session(player["id"])
         if session:
             # Resume existing combat
@@ -723,6 +771,8 @@ class Combat(commands.Cog):
         if not player:
             return await interaction.response.send_message(
                 embed=error_embed("No character."), ephemeral=True)
+
+        await _inject_equipment(player)
 
         session = await get_combat_session(player["id"])
         if session:

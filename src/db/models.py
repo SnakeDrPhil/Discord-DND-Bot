@@ -295,3 +295,47 @@ async def clear_non_equipped_inventory(player_id: int) -> int:
         return cursor.rowcount
     finally:
         await db.close()
+
+
+# --- Equipment Helpers ---
+
+async def get_equipped_items(player_id: int) -> list:
+    """Get all equipped items for a player."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "SELECT * FROM inventories WHERE player_id = ? AND equipped = 1",
+            (player_id,),
+        )
+        rows = await cursor.fetchall()
+        return [dict(r) for r in rows]
+    finally:
+        await db.close()
+
+
+async def get_equipped_in_slot(player_id: int, slot: str) -> Optional[dict]:
+    """Get the item equipped in a specific slot."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "SELECT * FROM inventories WHERE player_id = ? AND equipped = 1 AND slot = ?",
+            (player_id, slot),
+        )
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+    finally:
+        await db.close()
+
+
+async def count_inventory(player_id: int) -> int:
+    """Count total inventory items for a player."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "SELECT COUNT(*) as cnt FROM inventories WHERE player_id = ?",
+            (player_id,),
+        )
+        row = await cursor.fetchone()
+        return row["cnt"]
+    finally:
+        await db.close()

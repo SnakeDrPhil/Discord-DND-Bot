@@ -90,6 +90,13 @@ BURN_DAMAGE_PER_TURN = 5
 BLEED_DAMAGE_PER_TURN = 3
 POISON_DAMAGE_PER_TURN = 4
 
+# --- Inventory ---
+INVENTORY_CAPACITY = 20
+EQUIPMENT_SELL_VALUES = {
+    "poor": 1, "common": 3, "uncommon": 8,
+    "rare": 20, "epic": 50, "legendary": 150,
+}
+
 # --- Dungeon ---
 CURSE_STAT_PENALTY = 10      # percent reduction per curse
 CURSE_DURATION = 5           # combats

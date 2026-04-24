@@ -169,14 +169,20 @@ def spawn_enemies(player_level: int) -> list:
 
 def _player_damage(player: dict, state: dict, skill: Optional[dict] = None,
                    attack_type: str = "slash", tgt: Optional[dict] = None) -> int:
-    base = random.randint(UNARMED_DAMAGE_MIN, UNARMED_DAMAGE_MAX)
+    # Use equipped weapon damage if available
+    weapon = player.get("_equipped_weapon")
+    is_spell = skill and skill.get("type") in ("ice_spell", "fire_spell", "spell")
+
+    if weapon and not (is_spell and not weapon.get("casting", False)):
+        base = random.randint(weapon["damage_min"], weapon["damage_max"])
+    else:
+        base = random.randint(UNARMED_DAMAGE_MIN, UNARMED_DAMAGE_MAX)
 
     if skill is None and attack_type == "thrust":
         base = int(base * THRUST_DAMAGE_MULTIPLIER)
     if skill and skill.get("damage_multiplier"):
         base = int(base * skill["damage_multiplier"])
 
-    is_spell = skill and skill.get("type") in ("ice_spell", "fire_spell", "spell")
     if is_spell and player["class"] == "bard":
         bonus = calc_song_bonus(player["charisma"])
     elif is_spell:
@@ -255,6 +261,13 @@ def _enemy_damage(enemy: dict, player: dict, state: dict) -> Tuple[int, str]:
             dodge += b.get("chance", b.get("value", 0))
     if random.random() * 100 < dodge:
         return 0, "dodged"
+
+    # Armor damage reduction
+    total_ar = player.get("_total_ar", 0)
+    if total_ar > 0:
+        from src.game.formulas import calc_armor_reduction
+        ar_pct = calc_armor_reduction(total_ar)
+        raw = max(1, int(raw * (1 - ar_pct / 100)))
 
     # Damage reduction
     dmg = float(raw)
@@ -758,23 +771,14 @@ def check_combat_end(player_hp: int, enemies: list) -> str:
     return "ongoing"
 
 
-def calculate_rewards(enemies: list, damage_taken: int) -> dict:
+def calculate_rewards(enemies: list, damage_taken: int,
+                      floor: int = 1, player_class: str = "warrior") -> dict:
     xp = sum(e["xp_reward"] for e in enemies)
     perfect = damage_taken == 0
     if perfect:
         xp = int(xp * (1 + PERFECT_ENCOUNTER_XP_BONUS))
 
-    gold = 0
-    loot = []
-    for e in enemies:
-        table = get_loot_table(e["type"])
-        if not table:
-            continue
-        if random.random() < LOOT_DROP_CHANCE:
-            drop = dict(random.choice(table))
-            if "gold_min" in drop and "gold_max" in drop:
-                drop["gold_value"] = random.randint(drop["gold_min"], drop["gold_max"])
-                gold += drop["gold_value"]
-            loot.append(drop)
+    from src.game.items import generate_loot
+    gold, loot = generate_loot(enemies, floor, player_class)
 
     return {"xp": xp, "perfect": perfect, "gold": gold, "loot": loot}

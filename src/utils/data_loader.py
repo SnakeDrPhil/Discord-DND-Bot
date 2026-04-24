@@ -159,6 +159,22 @@ def get_floor(floor_number: int) -> Optional[dict]:
 
 # --- Scenarios ---
 
+def get_weapon_by_id(weapon_id: str) -> Optional[dict]:
+    """Return a single weapon by its ID."""
+    for w in _load("weapons.json"):
+        if w["id"] == weapon_id:
+            return w
+    return None
+
+
+def get_armor_by_id(armor_id: str) -> Optional[dict]:
+    """Return a single armor piece by its ID."""
+    for a in _load("armor.json"):
+        if a["id"] == armor_id:
+            return a
+    return None
+
+
 def get_scenarios(category: Optional[str] = None) -> Union[list, dict]:
     """Return scenario events, optionally filtered by category."""
     data = _load("scenarios.json")
