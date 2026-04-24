@@ -1,10 +1,13 @@
 """Shop commands: /shop, /buy, /sell_all."""
 
 import json
+import logging
 
 import discord
 from discord import app_commands
 from discord.ext import commands
+
+logger = logging.getLogger("dungeon_bot.shop")
 
 from src.db.models import (
     add_inventory_item,
@@ -109,6 +112,8 @@ class Shop(commands.Cog):
         new_gold = player["gold"] - total_cost
         await update_player(str(interaction.user.id), gold=new_gold)
 
+        logger.info("Purchase: player=%s item=%s qty=%d cost=%d",
+                     player["character_name"], item["name"], quantity, total_cost)
         qty_text = f" x{quantity}" if quantity > 1 else ""
         await interaction.response.send_message(
             embed=success_embed(

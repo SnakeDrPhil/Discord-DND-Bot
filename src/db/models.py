@@ -1,9 +1,12 @@
 """CRUD operations for game entities."""
 
 import json
+import logging
 from typing import Optional
 
 from src.db.database import get_db
+
+logger = logging.getLogger("dungeon_bot.db")
 
 
 # --- Players ---
@@ -371,5 +374,16 @@ async def count_inventory(player_id: int) -> int:
         )
         row = await cursor.fetchone()
         return row["cnt"]
+    finally:
+        await db.close()
+
+
+async def reset_player(discord_id: str) -> None:
+    """Delete a player and all related data (inventories, sessions)."""
+    db = await get_db()
+    try:
+        await db.execute("DELETE FROM players WHERE discord_id = ?", (discord_id,))
+        await db.commit()
+        logger.info("Player reset: discord_id=%s", discord_id)
     finally:
         await db.close()

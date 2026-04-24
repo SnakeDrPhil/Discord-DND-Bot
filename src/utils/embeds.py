@@ -4,7 +4,9 @@ import json
 
 import discord
 
+from src.game.constants import BOT_VERSION
 from src.game.formulas import (
+    calc_armor_reduction,
     calc_bonus_physical_damage,
     calc_bonus_spell_damage,
     calc_buff_duration_chance,
@@ -73,7 +75,7 @@ def help_embed() -> discord.Embed:
         name="Getting Started",
         value=(
             "`/create <name> <class>` - Create a character\n"
-            "Classes: Warrior, Rogue, Mage, Ranger, Bard, Cleric"
+            "`/classinfo <class>` - View class details"
         ),
         inline=False,
     )
@@ -89,6 +91,17 @@ def help_embed() -> discord.Embed:
             "`/sell <item>` - Sell an item for gold\n"
             "`/use_item <item>` - Use a consumable\n"
             "`/allocate <stat> <points>` - Spend stat points"
+        ),
+        inline=False,
+    )
+
+    embed.add_field(
+        name="Progression",
+        value=(
+            "`/skills` - View available class skills\n"
+            "`/learn <skill>` - Learn a new skill\n"
+            "`/talents` - View available talents\n"
+            "`/choose_talent <talent>` - Select a talent"
         ),
         inline=False,
     )
@@ -110,7 +123,6 @@ def help_embed() -> discord.Embed:
             "`/fight` - Engage in combat\n"
             "`/attack <type>` - Basic attack (slash/thrust)\n"
             "`/use <skill>` - Use a combat skill\n"
-            "`/cast <spell>` - Cast a spell\n"
             "`/item <name>` - Use a consumable\n"
             "`/flee` - Attempt to flee"
         ),
@@ -137,12 +149,15 @@ def help_embed() -> discord.Embed:
         inline=False,
     )
 
-    embed.set_footer(text="Dungeon Crawler Bot v0.1")
+    embed.set_footer(text=f"Dungeon Crawler Bot v{BOT_VERSION}")
     return embed
 
 
-def character_sheet_embed(player: dict, class_data: dict) -> discord.Embed:
-    """Rich character sheet embed with stats and computed effects."""
+def character_sheet_embed(player: dict, class_data: dict,
+                          equipped_items: list = None,
+                          equipment_bonuses: dict = None,
+                          total_ar: int = 0) -> discord.Embed:
+    """Rich character sheet embed with stats, equipment, and progression."""
     color = CLASS_COLORS.get(player["class"], discord.Color.greyple())
     embed = discord.Embed(
         title=f"{player['character_name']} - Level {player['level']} {class_data['name']}",
@@ -161,7 +176,14 @@ def character_sheet_embed(player: dict, class_data: dict) -> discord.Embed:
         inline=True,
     )
 
-    # Stats with computed effects
+    # Stats with computed effects and equipment bonuses
+    bonuses = equipment_bonuses or {}
+
+    def _stat_line(label, stat_name, base_val, effect_str):
+        bonus = bonuses.get(stat_name, 0)
+        bonus_text = f" (+{bonus})" if bonus > 0 else ""
+        return f"{label}: {base_val}{bonus_text}  {effect_str}"
+
     str_bonus = calc_bonus_physical_damage(player["strength"])
     dex_bonus = calc_double_strike_chance(player["dexterity"])
     int_bonus = calc_bonus_spell_damage(player["intelligence"])
@@ -172,30 +194,64 @@ def character_sheet_embed(player: dict, class_data: dict) -> discord.Embed:
     embed.add_field(
         name="Stats",
         value=(
-            f"STR: {player['strength']}  (+{str_bonus:.1f} dmg)\n"
-            f"DEX: {player['dexterity']}  ({dex_bonus:.1f}% double strike)\n"
-            f"INT: {player['intelligence']}  (+{int_bonus:.1f} spell dmg)\n"
-            f"AGI: {player['agility']}  ({agi_bonus:.1f}% dodge)\n"
-            f"WIS: {player['wisdom']}  (+{wis_bonus:.1f}% healing)\n"
-            f"END: {player['endurance']}\n"
-            f"CHA: {player['charisma']}  (+{cha_bonus:.1f} song pwr)"
+            f"{_stat_line('STR', 'strength', player['strength'], f'(+{str_bonus:.1f} dmg)')}\n"
+            f"{_stat_line('DEX', 'dexterity', player['dexterity'], f'({dex_bonus:.1f}% dbl strike)')}\n"
+            f"{_stat_line('INT', 'intelligence', player['intelligence'], f'(+{int_bonus:.1f} spell)')}\n"
+            f"{_stat_line('AGI', 'agility', player['agility'], f'({agi_bonus:.1f}% dodge)')}\n"
+            f"{_stat_line('WIS', 'wisdom', player['wisdom'], f'(+{wis_bonus:.1f}% heal)')}\n"
+            f"{_stat_line('END', 'endurance', player['endurance'], '')}\n"
+            f"{_stat_line('CHA', 'charisma', player['charisma'], f'(+{cha_bonus:.1f} song)')}"
         ),
         inline=True,
     )
+
+    # Equipment section
+    if equipped_items is not None:
+        slot_map = {}
+        for item in equipped_items:
+            idata = json.loads(item["item_data"]) if isinstance(item["item_data"], str) else item["item_data"]
+            slot_map[item.get("slot", "")] = idata
+
+        equip_lines = []
+        for slot in EQUIPMENT_SLOTS:
+            idata = slot_map.get(slot)
+            slot_label = slot.replace("_", " ").title()
+            if idata:
+                rarity = idata.get("rarity", "")
+                rarity_tag = f" ({rarity.capitalize()})" if rarity and rarity not in ("poor", "common") else ""
+                if idata.get("type") == "weapon":
+                    detail = f"{idata.get('damage_min', '?')}-{idata.get('damage_max', '?')} dmg"
+                elif idata.get("type") == "armor":
+                    detail = f"{idata.get('armor_rating', '?')} AR"
+                else:
+                    detail = ""
+                equip_lines.append(f"{slot_label}: **{idata['name']}**{rarity_tag} {detail}")
+            else:
+                equip_lines.append(f"{slot_label}: *(empty)*")
+
+        if total_ar > 0:
+            reduction = calc_armor_reduction(total_ar)
+            equip_lines.append(f"\nTotal AR: {total_ar} ({reduction:.1f}% reduction)")
+
+        embed.add_field(name="Equipment", value="\n".join(equip_lines), inline=False)
 
     # Progression
     next_xp = get_xp_for_level(player["level"] + 1)
     bar = _xp_progress_bar(player["xp"], next_xp)
     xp_display = f"{player['xp']}/{next_xp}" if next_xp else f"{player['xp']} (MAX)"
-    embed.add_field(
-        name="Progression",
-        value=(
-            f"XP: {xp_display}\n"
-            f"{bar}\n"
-            f"Unspent stat points: {player['unspent_stat_points']}"
-        ),
-        inline=False,
-    )
+    prog_lines = [
+        f"XP: {xp_display}",
+        bar,
+        f"Unspent stat points: {player['unspent_stat_points']}",
+    ]
+    highest_floor = player.get("highest_floor", 1) or 1
+    enemies_killed = player.get("enemies_killed", 0) or 0
+    bosses_killed = player.get("bosses_killed", 0) or 0
+    prog_lines.append(f"Highest Floor: {highest_floor}")
+    prog_lines.append(f"Enemies Killed: {enemies_killed}")
+    if bosses_killed > 0:
+        prog_lines.append(f"Bosses Killed: {bosses_killed}")
+    embed.add_field(name="Progression", value="\n".join(prog_lines), inline=False)
 
     # Learned skills
     learned_ids = json.loads(player["learned_skills"])
@@ -419,10 +475,11 @@ def combat_flee_embed(took_damage: bool, damage: int = 0) -> discord.Embed:
 # ── Dungeon Embeds ─────────────────────────────────────────────────
 
 def dungeon_enter_embed(player_name: str, floor: int, map_str: str,
-                        legend: str) -> discord.Embed:
+                        legend: str, floor_name: str = None) -> discord.Embed:
     """Embed shown when entering the dungeon."""
+    title = f"{floor_name} (Floor {floor})" if floor_name else f"Floor {floor}"
     embed = discord.Embed(
-        title=f"Floor {floor}",
+        title=title,
         description=f"**{player_name}** enters the dungeon.\n\n{map_str}",
         color=discord.Color.dark_grey(),
     )
@@ -431,10 +488,12 @@ def dungeon_enter_embed(player_name: str, floor: int, map_str: str,
 
 
 def dungeon_map_embed(player: dict, floor: int, map_str: str, legend: str,
-                      tiles_explored: int, total_passable: int) -> discord.Embed:
+                      tiles_explored: int, total_passable: int,
+                      floor_name: str = None) -> discord.Embed:
     """Map display embed with player status."""
+    title = f"{floor_name} (Floor {floor})" if floor_name else f"Floor {floor} - Map"
     embed = discord.Embed(
-        title=f"Floor {floor} - Map",
+        title=title,
         description=map_str,
         color=discord.Color.dark_grey(),
     )
@@ -457,10 +516,12 @@ def dungeon_map_embed(player: dict, floor: int, map_str: str, legend: str,
 
 
 def dungeon_move_embed(player: dict, floor: int, map_str: str,
-                       move_msg: str, regen_msg: str) -> discord.Embed:
+                       move_msg: str, regen_msg: str,
+                       floor_name: str = None) -> discord.Embed:
     """Embed after movement with map and result."""
+    title = f"{floor_name} (Floor {floor})" if floor_name else f"Floor {floor}"
     embed = discord.Embed(
-        title=f"Floor {floor}",
+        title=title,
         description=map_str,
         color=discord.Color.dark_grey(),
     )
@@ -510,7 +571,7 @@ def floor_complete_embed(player_name: str, floor: int,
     )
 
 
-def dungeon_death_embed(items_lost: int) -> discord.Embed:
+def dungeon_death_embed(items_lost: int, floor: int = 0) -> discord.Embed:
     """Embed for dying in the dungeon."""
     embed = discord.Embed(
         title="You Have Fallen!",
@@ -521,11 +582,13 @@ def dungeon_death_embed(items_lost: int) -> discord.Embed:
         ),
         color=discord.Color.dark_red(),
     )
+    if floor > 0:
+        embed.add_field(name="Floor", value=f"Died on Floor {floor}", inline=True)
     if items_lost > 0:
         embed.add_field(
             name="Items Lost",
             value=f"{items_lost} unequipped item(s) lost.",
-            inline=False,
+            inline=True,
         )
     return embed
 
@@ -723,6 +786,59 @@ def leaderboard_embed(category: str, entries: list) -> discord.Embed:
         lines.append(f"{prefix} **{name}** ({cls}) \u2014 {stat}")
 
     embed.description = "\n".join(lines)
+    return embed
+
+
+# ── Class Info Embed ──────────────────────────────────────────────
+
+def classinfo_embed(class_data: dict, skills: list, talents: list) -> discord.Embed:
+    """Detailed class breakdown with stats, skills, and talents."""
+    color = CLASS_COLORS.get(class_data["id"], discord.Color.greyple())
+    embed = discord.Embed(
+        title=class_data["name"],
+        description=class_data["description"],
+        color=color,
+    )
+
+    # Starting stats
+    stats = class_data["starting_stats"]
+    stat_text = "\n".join(f"{k[:3].upper()}: {v}" for k, v in stats.items())
+    embed.add_field(name="Starting Stats", value=stat_text, inline=True)
+
+    # Class details
+    embed.add_field(name="Details", value=(
+        f"Main Stat: {class_data['main_stat'].capitalize()}\n"
+        f"Resource: {class_data['resource'].upper()}\n"
+        f"Base HP: {class_data['base_hp']}\n"
+        f"Base Mana: {class_data['base_mana']}\n"
+        f"Base SP: {class_data['base_sp']}"
+    ), inline=True)
+
+    # Skills
+    skill_lines = []
+    for s in skills:
+        unlock = f" (Lv.{s['unlock_level']})" if s.get("unlock_level") else ""
+        skill_lines.append(f"**{s['name']}**{unlock} - {s['cost']} {s['resource'].upper()}")
+    if skill_lines:
+        # Discord field limit is 1024 chars, split if needed
+        text = "\n".join(skill_lines)
+        if len(text) > 1024:
+            mid = len(skill_lines) // 2
+            embed.add_field(name=f"Skills ({len(skills)})",
+                            value="\n".join(skill_lines[:mid]), inline=False)
+            embed.add_field(name="\u200b",
+                            value="\n".join(skill_lines[mid:]), inline=False)
+        else:
+            embed.add_field(name=f"Skills ({len(skills)})",
+                            value=text, inline=False)
+
+    # Talents
+    talent_lines = [f"**{t['name']}** - {t['effect']}" for t in talents]
+    if talent_lines:
+        embed.add_field(name=f"Talents ({len(talents)})",
+                        value="\n".join(talent_lines), inline=False)
+
+    embed.set_footer(text=f"Dungeon Crawler Bot v{BOT_VERSION}")
     return embed
 
 

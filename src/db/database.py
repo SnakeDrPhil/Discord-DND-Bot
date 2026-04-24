@@ -1,8 +1,11 @@
 """Database connection and initialization."""
 
+import logging
 import os
 
 import aiosqlite
+
+logger = logging.getLogger("dungeon_bot.db")
 
 DATABASE_PATH = os.getenv("DATABASE_PATH", "dungeon_crawler.db")
 
@@ -112,5 +115,7 @@ async def init_db():
             try:
                 await db.execute(migration)
                 await db.commit()
+                logger.info("Migration applied: %s", migration[:60])
             except Exception:
                 pass  # Column already exists
+        logger.info("Database initialized at %s", DATABASE_PATH)

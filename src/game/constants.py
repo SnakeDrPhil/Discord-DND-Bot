@@ -1,3 +1,5 @@
+BOT_VERSION = "0.7.0"
+
 # --- Resource Regeneration (per tile move) ---
 REGEN_SP_PER_TILE = 5
 REGEN_MANA_PER_TILE = 10

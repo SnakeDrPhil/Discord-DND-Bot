@@ -1,14 +1,18 @@
 """Character commands: /create, /stats, /delete."""
 
+import logging
 import re
 
 import discord
 from discord import app_commands
 from discord.ext import commands
 
-from src.db.models import create_player, delete_player, get_player
+from src.db.models import create_player, delete_player, get_equipped_items, get_player
+from src.game.items import calc_equipment_stat_bonuses, get_total_armor_rating
 from src.utils.data_loader import get_class
 from src.utils.embeds import character_sheet_embed, error_embed, info_embed, success_embed
+
+logger = logging.getLogger("dungeon_bot.character")
 
 NAME_PATTERN = re.compile(r"^[a-zA-Z0-9 '\-]{2,32}$")
 
@@ -23,6 +27,7 @@ class DeleteConfirmView(discord.ui.View):
     @discord.ui.button(label="Confirm Delete", style=discord.ButtonStyle.danger)
     async def confirm(self, interaction: discord.Interaction, button: discord.ui.Button):
         await delete_player(self.discord_id)
+        logger.info("Character deleted by discord_id=%s", self.discord_id)
         await interaction.response.edit_message(
             embed=success_embed("Character Deleted", "Your character has been permanently deleted."),
             view=None,
@@ -94,6 +99,8 @@ class Character(commands.Cog):
 
         # Fetch and display
         player = await get_player(discord_id)
+        logger.info("Character created: %s (%s) by %s",
+                     name, player_class.value, discord_id)
         await interaction.response.send_message(
             embed=character_sheet_embed(player, class_data),
         )
@@ -108,7 +115,15 @@ class Character(commands.Cog):
                 ephemeral=True,
             )
         class_data = get_class(player["class"])
-        await interaction.response.send_message(embed=character_sheet_embed(player, class_data))
+
+        # Load equipment data for character sheet
+        equipped = await get_equipped_items(player["id"])
+        bonuses = calc_equipment_stat_bonuses(equipped)
+        total_ar = get_total_armor_rating(equipped)
+
+        await interaction.response.send_message(
+            embed=character_sheet_embed(player, class_data, equipped, bonuses, total_ar)
+        )
 
     @app_commands.command(name="delete", description="Delete your character (irreversible)")
     async def delete(self, interaction: discord.Interaction):

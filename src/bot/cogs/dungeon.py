@@ -1,11 +1,14 @@
 """Dungeon commands: /enter, /move, /map, /retreat with interactive buttons."""
 
 import json
+import logging
 import random
 
 import discord
 from discord import app_commands
 from discord.ext import commands
+
+logger = logging.getLogger("dungeon_bot.dungeon")
 
 from src.db.models import (
     add_inventory_item,
@@ -258,12 +261,15 @@ class Dungeon(commands.Cog):
         )
 
         # --- Resolve tile events on first visit ---
+        floor_name = FLOOR_NAMES.get(dsess["floor"])
+
         if not first_visit:
             # Already visited -- just show map
             map_str = render_map(floor_data, visited, (new_row, new_col))
             embed = dungeon_move_embed(
                 player, dsess["floor"], map_str,
                 f"Moved {direction}. (Already explored)", regen_msg,
+                floor_name=floor_name,
             )
             new_valid = get_valid_moves(floor_data, new_row, new_col)
             view = MovementView(discord_id, new_valid)
@@ -356,7 +362,7 @@ class Dungeon(commands.Cog):
             if result["death"]:
                 items_lost = await _handle_death(player)
                 s_embed = scenario_embed(event, category, result["messages"])
-                d_embed = dungeon_death_embed(items_lost)
+                d_embed = dungeon_death_embed(items_lost, floor=dsess["floor"])
                 if is_button:
                     await interaction.response.edit_message(embed=s_embed, view=None)
                     await interaction.followup.send(embed=d_embed)
@@ -385,7 +391,8 @@ class Dungeon(commands.Cog):
             s_embed = scenario_embed(event, category, result["messages"])
             map_str = render_map(floor_data, visited, (new_row, new_col))
             m_embed = dungeon_move_embed(
-                player, dsess["floor"], map_str, f"Moved {direction}.", regen_msg)
+                player, dsess["floor"], map_str, f"Moved {direction}.", regen_msg,
+                floor_name=floor_name)
             new_valid = get_valid_moves(floor_data, new_row, new_col)
             view = MovementView(discord_id, new_valid)
             if is_button:
@@ -407,6 +414,7 @@ class Dungeon(commands.Cog):
         embed = dungeon_move_embed(
             player, dsess["floor"], map_str,
             f"Moved {direction}.", regen_msg,
+            floor_name=floor_name,
         )
         new_valid = get_valid_moves(floor_data, new_row, new_col)
         view = MovementView(discord_id, new_valid)
@@ -437,6 +445,7 @@ class Dungeon(commands.Cog):
 
         await update_player(discord_id, in_dungeon=0)
         await delete_dungeon_session(player["id"])
+        logger.info("Dungeon retreat: player=%s", player["character_name"])
         embed = dungeon_retreat_embed(player["character_name"])
         if is_button:
             await interaction.response.edit_message(embed=embed, view=None)
@@ -482,8 +491,10 @@ class Dungeon(commands.Cog):
             visited = json.loads(dsess["visited_tiles"])
             pos = (dsess["position_x"], dsess["position_y"])
             map_str = render_map(floor_data, visited, pos)
+            fn = FLOOR_NAMES.get(dsess["floor"])
             embed = dungeon_enter_embed(
-                player["character_name"], dsess["floor"], map_str, MAP_LEGEND)
+                player["character_name"], dsess["floor"], map_str, MAP_LEGEND,
+                floor_name=fn)
             embed.add_field(
                 name="Resources",
                 value=(
@@ -513,8 +524,12 @@ class Dungeon(commands.Cog):
         visited = [start]
         pos = (start[0], start[1])
         map_str = render_map(floor_data, visited, pos)
+        fn = FLOOR_NAMES.get(floor_num)
+        logger.info("Dungeon entered: player=%s floor=%d",
+                     player["character_name"], floor_num)
         embed = dungeon_enter_embed(
-            player["character_name"], floor_num, map_str, MAP_LEGEND)
+            player["character_name"], floor_num, map_str, MAP_LEGEND,
+            floor_name=fn)
         embed.add_field(
             name="Resources",
             value=(
@@ -563,8 +578,10 @@ class Dungeon(commands.Cog):
         pos = (dsess["position_x"], dsess["position_y"])
         map_str = render_map(floor_data, visited, pos)
         total = _count_passable(floor_data)
+        fn = FLOOR_NAMES.get(dsess["floor"])
         embed = dungeon_map_embed(
-            player, dsess["floor"], map_str, MAP_LEGEND, len(visited), total)
+            player, dsess["floor"], map_str, MAP_LEGEND, len(visited), total,
+            floor_name=fn)
         valid = get_valid_moves(floor_data, pos[0], pos[1])
         view = MovementView(discord_id, valid)
         await interaction.response.send_message(embed=embed, view=view)
@@ -607,9 +624,11 @@ class Dungeon(commands.Cog):
             visited_tiles=json.dumps(visited),
         )
         map_str = render_map(floor_data, visited, (row, col))
+        fn = FLOOR_NAMES.get(dsess["floor"])
         embed = dungeon_move_embed(
             player, dsess["floor"], map_str,
-            f"Teleported to ({row}, {col}) [{tile}]", "")
+            f"Teleported to ({row}, {col}) [{tile}]", "",
+            floor_name=fn)
         valid = get_valid_moves(floor_data, row, col)
         view = MovementView(discord_id, valid)
         await interaction.response.send_message(embed=embed, view=view)

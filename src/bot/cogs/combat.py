@@ -1,11 +1,14 @@
 """Combat commands: /fight, /attack, /use, /item, /flee with interactive buttons."""
 
 import json
+import logging
 import random
 
 import discord
 from discord import app_commands
 from discord.ext import commands
+
+logger = logging.getLogger("dungeon_bot.combat")
 
 from src.db.models import (
     add_inventory_item,
@@ -204,6 +207,14 @@ async def _send_result(interaction, player, state, result, flee_damage=0, is_but
         if rewards.get("is_boss"):
             await increment_player_stat(str(player["discord_id"]), "bosses_killed", 1)
 
+        loot_count = len(rewards["loot"])
+        dead_count_log = sum(1 for e in state["enemies"] if not e["is_alive"])
+        logger.info("Victory: player=%s enemies=%d xp=%d gold=%d loot=%d",
+                     player["character_name"], dead_count_log,
+                     rewards["xp"], rewards["gold"], loot_count)
+        if rewards.get("is_boss"):
+            logger.info("Boss defeated by %s", player["character_name"])
+
         embed = combat_victory_embed(
             player["character_name"], rewards["xp"], rewards["perfect"],
             rewards["gold"], rewards["loot"], events,
@@ -216,13 +227,16 @@ async def _send_result(interaction, player, state, result, flee_damage=0, is_but
         from src.db.models import clear_non_equipped_inventory
         dsess = await get_dungeon_session(player["id"])
         if dsess:
+            floor = dsess.get("floor", 0)
             items_lost = await clear_non_equipped_inventory(player["id"])
             await update_player(str(player["discord_id"]),
                                 hp=player["max_hp"], mana=player["max_mana"],
                                 sp=player["max_sp"], in_dungeon=0)
             await delete_dungeon_session(player["id"])
             from src.utils.embeds import dungeon_death_embed
-            embed = dungeon_death_embed(items_lost)
+            logger.info("Defeat (dungeon death): player=%s floor=%d items_lost=%d",
+                         player["character_name"], floor, items_lost)
+            embed = dungeon_death_embed(items_lost, floor=floor)
         else:
             await update_player(str(player["discord_id"]),
                                 hp=player["max_hp"], mana=player["max_mana"],
