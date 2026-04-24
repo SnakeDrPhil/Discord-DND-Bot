@@ -327,6 +327,40 @@ async def get_equipped_in_slot(player_id: int, slot: str) -> Optional[dict]:
         await db.close()
 
 
+async def increment_player_stat(discord_id: str, stat: str, amount: int = 1) -> None:
+    """Increment a player tracking stat (enemies_killed, bosses_killed)."""
+    db = await get_db()
+    try:
+        await db.execute(
+            f"UPDATE players SET {stat} = {stat} + ? WHERE discord_id = ?",
+            (amount, discord_id),
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def get_leaderboard(category: str, limit: int = 10) -> list:
+    """Fetch top players for a leaderboard category."""
+    order_map = {
+        "level": "level DESC, xp DESC",
+        "floor": "highest_floor DESC, level DESC",
+        "kills": "enemies_killed DESC, level DESC",
+    }
+    order = order_map.get(category, "level DESC, xp DESC")
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            f"SELECT character_name, class, level, highest_floor, enemies_killed "
+            f"FROM players ORDER BY {order} LIMIT ?",
+            (limit,),
+        )
+        rows = await cursor.fetchall()
+        return [dict(r) for r in rows]
+    finally:
+        await db.close()
+
+
 async def count_inventory(player_id: int) -> int:
     """Count total inventory items for a player."""
     db = await get_db()

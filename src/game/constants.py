@@ -102,6 +102,52 @@ CURSE_STAT_PENALTY = 10      # percent reduction per curse
 CURSE_DURATION = 5           # combats
 MAX_CURSES = 3
 
+# --- Floor Scaling ---
+FLOOR_ENEMY_LEVELS = {
+    1: (1, 3), 2: (3, 5), 3: (5, 8), 4: (8, 12), 5: (12, 16),
+}
+FLOOR_ENEMY_COUNTS = {
+    1: (1, 2), 2: (1, 3), 3: (2, 3), 4: (2, 4), 5: (2, 4),
+}
+FLOOR_BOSSES = {
+    5: "goblin_king",
+}
+FLOOR_NAMES = {
+    1: "The Goblin Warrens",
+    2: "The Winding Tunnels",
+    3: "The Rat King's Domain",
+    4: "The Deep Halls",
+    5: "The Goblin King's Throne",
+}
+
+# --- Shop ---
+SHOP_PRICES = {
+    "minor_healing_potion": 15,
+    "herbal_remedy": 25,
+    "elixir_of_vitality": 40,
+    "revitalizing_salve": 35,
+    "healing_fruit": 50,
+    "mana_potion": 15,
+    "arcane_elixir": 35,
+    "essence_of_magic": 25,
+    "crystalline_focus": 40,
+    "sorcerers_snack": 15,
+    "stamina_tonic": 15,
+    "energizing_elixir": 25,
+    "rejuvenating_tea": 35,
+    "warriors_ration": 20,
+    "filling_meal": 40,
+}
+
+# --- Boss Loot ---
+BOSS_LOOT_RULES = {
+    "goblin_king": {
+        "guaranteed_rarity_min": "rare",
+        "drop_count": 2,
+        "bonus_gold": (100, 250),
+    },
+}
+
 # --- Stats List ---
 ALL_STATS = [
     "strength", "dexterity", "intelligence", "agility",

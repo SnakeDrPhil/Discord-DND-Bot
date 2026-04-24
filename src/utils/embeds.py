@@ -96,7 +96,7 @@ def help_embed() -> discord.Embed:
     embed.add_field(
         name="Dungeon",
         value=(
-            "`/enter` - Enter the dungeon\n"
+            "`/enter [floor]` - Enter the dungeon\n"
             "`/move <direction>` - Move (north/south/east/west)\n"
             "`/map` - View the dungeon map\n"
             "`/retreat` - Leave the dungeon"
@@ -113,6 +113,17 @@ def help_embed() -> discord.Embed:
             "`/cast <spell>` - Cast a spell\n"
             "`/item <name>` - Use a consumable\n"
             "`/flee` - Attempt to flee"
+        ),
+        inline=False,
+    )
+
+    embed.add_field(
+        name="Shop & Leaderboard",
+        value=(
+            "`/shop` - Browse the shop\n"
+            "`/buy <item>` - Buy a consumable\n"
+            "`/sell_all` - Sell all unequipped items\n"
+            "`/leaderboard [category]` - View rankings"
         ),
         inline=False,
     )
@@ -650,4 +661,77 @@ def equip_embed(item_name: str, slot: str, unequipped_name: str = None) -> disco
         title="Equipment Changed",
         description=desc,
         color=discord.Color.green(),
+    )
+
+
+# ── Shop Embeds ───────────────────────────────────────────────────
+
+def shop_embed(items: list, player_gold: int) -> discord.Embed:
+    """Display shop inventory with prices."""
+    embed = discord.Embed(
+        title="Shop",
+        description="Buy consumables to aid your dungeon runs.",
+        color=discord.Color.gold(),
+    )
+    lines = []
+    for item in items:
+        price = item["price"]
+        marker = "\u2705" if player_gold >= price else "\u274c"
+        lines.append(f"{marker} **{item['name']}** \u2014 {price}g\n  {item.get('effect', '')}")
+    if lines:
+        # Split into chunks if too long
+        text = "\n".join(lines)
+        if len(text) > 1024:
+            mid = len(lines) // 2
+            embed.add_field(name="Items", value="\n".join(lines[:mid]), inline=False)
+            embed.add_field(name="\u200b", value="\n".join(lines[mid:]), inline=False)
+        else:
+            embed.add_field(name="Items", value=text, inline=False)
+    embed.set_footer(text=f"Your gold: {player_gold} | Use /buy <item> to purchase")
+    return embed
+
+
+# ── Leaderboard Embeds ────────────────────────────────────────────
+
+def leaderboard_embed(category: str, entries: list) -> discord.Embed:
+    """Display leaderboard rankings."""
+    titles = {
+        "level": "Highest Level",
+        "floor": "Deepest Floor",
+        "kills": "Most Kills",
+    }
+    embed = discord.Embed(
+        title=f"Leaderboard \u2014 {titles.get(category, category.capitalize())}",
+        color=discord.Color.gold(),
+    )
+    if not entries:
+        embed.description = "No players yet!"
+        return embed
+
+    medals = ["\U0001f947", "\U0001f948", "\U0001f949"]
+    lines = []
+    for i, e in enumerate(entries):
+        prefix = medals[i] if i < 3 else f"{i + 1}."
+        name = e["character_name"]
+        cls = e["class"].capitalize()
+        if category == "level":
+            stat = f"Level {e['level']}"
+        elif category == "floor":
+            stat = f"Floor {e['highest_floor']}"
+        else:
+            stat = f"{e['enemies_killed']} kills"
+        lines.append(f"{prefix} **{name}** ({cls}) \u2014 {stat}")
+
+    embed.description = "\n".join(lines)
+    return embed
+
+
+# ── Boss Embeds ───────────────────────────────────────────────────
+
+def boss_encounter_embed(boss_name: str) -> discord.Embed:
+    """Special embed shown before boss combat."""
+    return discord.Embed(
+        title="\U0001f480 Boss Encounter!",
+        description=f"**{boss_name}** blocks your path!",
+        color=discord.Color.dark_red(),
     )

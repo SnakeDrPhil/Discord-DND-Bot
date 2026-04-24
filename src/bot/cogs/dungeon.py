@@ -22,7 +22,8 @@ from src.db.models import (
     update_dungeon_session,
     update_player,
 )
-from src.game.combat import spawn_enemies
+from src.game.combat import spawn_boss, spawn_enemies
+from src.game.constants import FLOOR_BOSSES, FLOOR_NAMES
 from src.game.dungeon import (
     MAP_LEGEND,
     apply_dungeon_effects_to_player,
@@ -79,10 +80,12 @@ async def _handle_death(player: dict):
 
 
 async def _start_dungeon_combat(player, session, floor_data, interaction,
-                                is_button=False, hp_penalty=0):
+                                is_button=False, hp_penalty=0, boss_type=None):
     """Spawn enemies and start combat from a dungeon tile."""
-    level = get_encounter_level(session["floor"])
-    enemies = spawn_enemies(level)
+    if boss_type:
+        enemies = spawn_boss(boss_type)
+    else:
+        enemies = spawn_enemies(player.get("level", 1), floor=session["floor"])
     enemies_json = json.dumps(enemies)
     await create_combat_session(player["id"], enemies_json)
 
@@ -273,7 +276,12 @@ class Dungeon(commands.Cog):
         # --- Exit tile ---
         if tile_type == "exit":
             new_floor = dsess["floor"] + 1
-            await update_player(discord_id, current_floor=new_floor, in_dungeon=0)
+            updates = {"in_dungeon": 0}
+            if new_floor > (player.get("current_floor", 1) or 1):
+                updates["current_floor"] = new_floor
+            if new_floor > (player.get("highest_floor", 1) or 1):
+                updates["highest_floor"] = new_floor
+            await update_player(discord_id, **updates)
             await delete_dungeon_session(player["id"])
             embed = floor_complete_embed(
                 player["character_name"], dsess["floor"], len(visited))
@@ -282,6 +290,17 @@ class Dungeon(commands.Cog):
             else:
                 await interaction.response.send_message(embed=embed)
             return
+
+        # --- Boss tile ---
+        if tile_type == "boss":
+            boss_type = FLOOR_BOSSES.get(dsess["floor"])
+            if boss_type:
+                await _start_dungeon_combat(
+                    player, dsess, floor_data, interaction,
+                    is_button=is_button, boss_type=boss_type)
+                return
+            # No boss defined for this floor -- treat as combat
+            tile_type = "combat"
 
         # --- Combat tile ---
         if tile_type == "combat":
@@ -427,7 +446,8 @@ class Dungeon(commands.Cog):
     # ── Slash Commands ───────────────────────────────────────
 
     @app_commands.command(name="enter", description="Enter the dungeon")
-    async def enter(self, interaction: discord.Interaction):
+    @app_commands.describe(floor="Floor number (defaults to highest unlocked)")
+    async def enter(self, interaction: discord.Interaction, floor: int = None):
         discord_id = str(interaction.user.id)
         player = await get_player(discord_id)
         if not player:
@@ -442,7 +462,15 @@ class Dungeon(commands.Cog):
                 embed=error_embed("Finish your combat first!"), ephemeral=True)
 
         dsess = await get_dungeon_session(player["id"])
-        floor_num = player["current_floor"] or 1
+        max_floor = player.get("current_floor", 1) or 1
+        if floor is not None:
+            if floor < 1 or floor > max_floor:
+                return await interaction.response.send_message(
+                    embed=error_embed(f"You can enter floors 1-{max_floor}."),
+                    ephemeral=True)
+            floor_num = floor
+        else:
+            floor_num = max_floor
 
         if dsess:
             # Resume existing session
@@ -630,8 +658,7 @@ class Dungeon(commands.Cog):
 async def _start_dungeon_combat_followup(player, session, floor_data,
                                          interaction, hp_penalty=0):
     """Start combat as a followup message (after scenario embed)."""
-    level = get_encounter_level(session["floor"])
-    enemies = spawn_enemies(level)
+    enemies = spawn_enemies(player.get("level", 1), floor=session["floor"])
     enemies_json = json.dumps(enemies)
     await create_combat_session(player["id"], enemies_json)
 

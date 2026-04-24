@@ -35,6 +35,9 @@ CREATE TABLE IF NOT EXISTS players (
     position_y INTEGER NOT NULL DEFAULT 0,
     in_dungeon INTEGER NOT NULL DEFAULT 0,
     gold INTEGER NOT NULL DEFAULT 0,
+    enemies_killed INTEGER NOT NULL DEFAULT 0,
+    highest_floor INTEGER NOT NULL DEFAULT 1,
+    bosses_killed INTEGER NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -92,8 +95,22 @@ async def get_db() -> aiosqlite.Connection:
     return db
 
 
+_MIGRATIONS = [
+    "ALTER TABLE players ADD COLUMN enemies_killed INTEGER NOT NULL DEFAULT 0",
+    "ALTER TABLE players ADD COLUMN highest_floor INTEGER NOT NULL DEFAULT 1",
+    "ALTER TABLE players ADD COLUMN bosses_killed INTEGER NOT NULL DEFAULT 0",
+]
+
+
 async def init_db():
     """Create all tables if they don't exist."""
     async with aiosqlite.connect(DATABASE_PATH) as db:
         await db.executescript(_SCHEMA)
         await db.commit()
+        # Run migrations for existing databases
+        for migration in _MIGRATIONS:
+            try:
+                await db.execute(migration)
+                await db.commit()
+            except Exception:
+                pass  # Column already exists

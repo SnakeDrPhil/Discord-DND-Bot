@@ -8,14 +8,18 @@ from src.game.constants import (
     AGILITY_FLEE_BONUS,
     BASE_FLEE_CHANCE,
     BLEED_DAMAGE_PER_TURN,
+    BOSS_LOOT_RULES,
     BURN_DAMAGE_PER_TURN,
     ENEMY_TYPES,
+    FLOOR_ENEMY_COUNTS,
+    FLOOR_ENEMY_LEVELS,
     LOOT_DROP_CHANCE,
     MAX_ATTACKS_PER_TURN,
     MAX_BUFFS_PER_TURN,
     MAX_ITEMS_PER_TURN,
     PERFECT_ENCOUNTER_XP_BONUS,
     POISON_DAMAGE_PER_TURN,
+    RARITY_TIERS,
     THRUST_DAMAGE_MULTIPLIER,
     THRUST_STUN_CHANCE,
     UNARMED_DAMAGE_MAX,
@@ -144,12 +148,13 @@ def serialize_state(state: dict) -> dict:
 
 # ── Enemy Spawning ──────────────────────────────────────────────────
 
-def spawn_enemies(player_level: int) -> list:
-    roll = random.randint(1, 100)
-    count = 1 if roll <= 60 else (2 if roll <= 90 else 3)
-    level = min(player_level, 20)
+def spawn_enemies(player_level: int, floor: int = 1) -> list:
+    level_min, level_max = FLOOR_ENEMY_LEVELS.get(floor, (1, 3))
+    count_min, count_max = FLOOR_ENEMY_COUNTS.get(floor, (1, 2))
+    count = random.randint(count_min, count_max)
     enemies = []
     for i in range(count):
+        level = min(random.randint(level_min, level_max), 20)
         etype = random.choice(ENEMY_TYPES)
         data = get_enemies(enemy_type=etype, level=level)
         if not data:
@@ -163,6 +168,27 @@ def spawn_enemies(player_level: int) -> list:
             "xp_reward": t["xp_reward"], "is_alive": True,
         })
     return enemies
+
+
+def spawn_boss(boss_type: str) -> list:
+    """Spawn a boss enemy. Returns a list with one boss enemy dict."""
+    from src.utils.data_loader import get_boss
+    boss_data = get_boss(boss_type)
+    if not boss_data:
+        return spawn_enemies(16, floor=5)
+    return [{
+        "id": 0,
+        "type": boss_data["type"],
+        "name": boss_data.get("name", boss_data["type"].replace("_", " ").title()),
+        "level": boss_data["level"],
+        "hp": boss_data["hp"],
+        "max_hp": boss_data["hp"],
+        "damage_min": boss_data["damage_min"],
+        "damage_max": boss_data["damage_max"],
+        "xp_reward": boss_data["xp_reward"],
+        "is_alive": True,
+        "is_boss": True,
+    }]
 
 
 # ── Damage Calculation ──────────────────────────────────────────────
@@ -778,7 +804,17 @@ def calculate_rewards(enemies: list, damage_taken: int,
     if perfect:
         xp = int(xp * (1 + PERFECT_ENCOUNTER_XP_BONUS))
 
-    from src.game.items import generate_loot
-    gold, loot = generate_loot(enemies, floor, player_class)
+    # Check for boss enemies
+    has_boss = any(e.get("is_boss") for e in enemies)
+    boss_type = None
+    if has_boss:
+        boss_type = next((e["type"] for e in enemies if e.get("is_boss")), None)
 
-    return {"xp": xp, "perfect": perfect, "gold": gold, "loot": loot}
+    from src.game.items import generate_loot, generate_boss_loot
+    if boss_type and boss_type in BOSS_LOOT_RULES:
+        gold, loot = generate_boss_loot(enemies, floor, player_class, boss_type)
+    else:
+        gold, loot = generate_loot(enemies, floor, player_class)
+
+    return {"xp": xp, "perfect": perfect, "gold": gold, "loot": loot,
+            "is_boss": has_boss}

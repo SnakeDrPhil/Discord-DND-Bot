@@ -7,9 +7,11 @@ from typing import Optional
 from src.game.constants import (
     ALL_STATS,
     ARMOR_RARITY_MULTIPLIERS,
+    BOSS_LOOT_RULES,
     EQUIPMENT_SELL_VALUES,
     LOOT_DROP_CHANCE,
     MAX_AR_BY_SLOT,
+    RARITY_TIERS,
     STAT_AFFIX_RULES,
     WEAPON_DAMAGE_RANGES,
     WEAPON_DROP_CHANCES,
@@ -207,5 +209,59 @@ def generate_loot(enemies: list, floor: int, player_class: str) -> tuple:
                 base = random.choice(armor_list)
                 item = generate_armor(base, rarity, floor)
             loot.append(item)
+
+    return gold, loot
+
+
+def _roll_rarity_with_minimum(min_rarity: str) -> str:
+    """Roll rarity but guarantee at least the minimum tier."""
+    min_idx = RARITY_TIERS.index(min_rarity) if min_rarity in RARITY_TIERS else 0
+    for _ in range(100):
+        rarity = roll_rarity()
+        if RARITY_TIERS.index(rarity) >= min_idx:
+            return rarity
+    return min_rarity
+
+
+def generate_boss_loot(enemies: list, floor: int, player_class: str,
+                       boss_type: str) -> tuple:
+    """Generate loot from a boss kill. Guaranteed drops with higher rarity."""
+    gold = 0
+    loot = []
+    rules = BOSS_LOOT_RULES.get(boss_type, {})
+    min_rarity = rules.get("guaranteed_rarity_min", "rare")
+    drop_count = rules.get("drop_count", 2)
+    bonus_gold_range = rules.get("bonus_gold", (100, 250))
+
+    # Boss-specific loot table drops (100% chance, not 50%)
+    for e in enemies:
+        if not e.get("type"):
+            continue
+        table = get_loot_table(e["type"])
+        if table:
+            drop = dict(random.choice(table))
+            if "gold_min" in drop and "gold_max" in drop:
+                gv = random.randint(drop["gold_min"], drop["gold_max"])
+                drop["gold_value"] = gv
+                gold += gv
+            loot.append(drop)
+
+    # Guaranteed equipment drops at minimum rarity
+    for _ in range(drop_count):
+        rarity = _roll_rarity_with_minimum(min_rarity)
+        if random.random() < 0.5:
+            weapons = get_weapons()
+            base = random.choice(weapons)
+            item = generate_weapon(base, rarity, floor)
+        else:
+            armor_list = get_armor(class_name=player_class)
+            if not armor_list:
+                armor_list = get_armor()
+            base = random.choice(armor_list)
+            item = generate_armor(base, rarity, floor)
+        loot.append(item)
+
+    # Bonus gold
+    gold += random.randint(*bonus_gold_range)
 
     return gold, loot

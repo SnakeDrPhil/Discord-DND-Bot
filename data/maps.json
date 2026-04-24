@@ -2,7 +2,7 @@
   "floors": [
     {
       "floor": 1,
-      "name": "Floor 1",
+      "name": "The Goblin Warrens",
       "width": 7,
       "height": 7,
       "start": [0, 0],
@@ -15,6 +15,80 @@
         ["path",   "path",    "sr",      "path",    "combat",  "path",    "path"],
         ["wall",   "wall",    "path",    "wall",    "path",    "wall",    "path"],
         ["combat", "path",    "sr",      "path",    "path",    "sr",      "exit"]
+      ]
+    },
+    {
+      "floor": 2,
+      "name": "The Winding Tunnels",
+      "width": 7,
+      "height": 7,
+      "start": [0, 0],
+      "exit": [6, 6],
+      "tiles": [
+        ["start",  "path",    "combat",  "path",    "path",    "wall",    "path"],
+        ["wall",   "wall",    "path",    "wall",    "combat",  "path",    "wall"],
+        ["path",   "combat",  "path",    "sr",      "path",    "path",    "path"],
+        ["path",   "wall",    "wall",    "wall",    "path",    "wall",    "combat"],
+        ["sr",     "path",    "path",    "combat",  "path",    "path",    "path"],
+        ["wall",   "wall",    "path",    "wall",    "wall",    "wall",    "path"],
+        ["path",   "path",    "combat",  "path",    "sr",      "path",    "exit"]
+      ]
+    },
+    {
+      "floor": 3,
+      "name": "The Rat King's Domain",
+      "width": 9,
+      "height": 9,
+      "start": [0, 0],
+      "exit": [8, 8],
+      "tiles": [
+        ["start",  "path",    "wall",    "sr",      "path",    "path",    "wall",    "path",    "path"],
+        ["path",   "wall",    "path",    "path",    "wall",    "combat",  "path",    "wall",    "path"],
+        ["path",   "path",    "combat",  "path",    "sr",      "path",    "path",    "path",    "wall"],
+        ["wall",   "path",    "wall",    "wall",    "path",    "wall",    "sr",      "path",    "path"],
+        ["sr",     "path",    "path",    "combat",  "path",    "path",    "wall",    "wall",    "combat"],
+        ["path",   "wall",    "path",    "wall",    "wall",    "path",    "path",    "path",    "path"],
+        ["path",   "path",    "sr",      "path",    "combat",  "path",    "wall",    "sr",      "path"],
+        ["wall",   "wall",    "path",    "wall",    "path",    "wall",    "path",    "wall",    "path"],
+        ["path",   "combat",  "path",    "sr",      "path",    "path",    "path",    "combat",  "exit"]
+      ]
+    },
+    {
+      "floor": 4,
+      "name": "The Deep Halls",
+      "width": 9,
+      "height": 9,
+      "start": [0, 0],
+      "exit": [8, 8],
+      "tiles": [
+        ["start",  "combat",  "path",    "wall",    "path",    "sr",      "path",    "wall",    "path"],
+        ["path",   "wall",    "path",    "combat",  "path",    "wall",    "path",    "combat",  "path"],
+        ["sr",     "path",    "combat",  "path",    "wall",    "path",    "combat",  "path",    "wall"],
+        ["path",   "wall",    "path",    "wall",    "path",    "wall",    "path",    "wall",    "path"],
+        ["combat", "path",    "sr",      "path",    "combat",  "path",    "sr",      "path",    "combat"],
+        ["wall",   "path",    "wall",    "path",    "wall",    "path",    "wall",    "path",    "wall"],
+        ["path",   "combat",  "path",    "wall",    "path",    "combat",  "path",    "sr",      "path"],
+        ["path",   "wall",    "sr",      "path",    "wall",    "path",    "wall",    "path",    "path"],
+        ["path",   "path",    "combat",  "path",    "sr",      "path",    "combat",  "path",    "exit"]
+      ]
+    },
+    {
+      "floor": 5,
+      "name": "The Goblin King's Throne",
+      "width": 9,
+      "height": 9,
+      "start": [0, 0],
+      "exit": [8, 8],
+      "tiles": [
+        ["start",  "path",    "sr",      "path",    "wall",    "combat",  "path",    "wall",    "path"],
+        ["path",   "wall",    "path",    "combat",  "path",    "wall",    "path",    "path",    "wall"],
+        ["combat", "path",    "path",    "wall",    "sr",      "path",    "combat",  "path",    "path"],
+        ["path",   "wall",    "combat",  "path",    "path",    "wall",    "path",    "wall",    "sr"],
+        ["sr",     "path",    "wall",    "path",    "combat",  "path",    "path",    "combat",  "path"],
+        ["wall",   "path",    "path",    "wall",    "path",    "wall",    "sr",      "wall",    "path"],
+        ["path",   "combat",  "sr",      "path",    "wall",    "path",    "path",    "path",    "combat"],
+        ["path",   "wall",    "path",    "wall",    "path",    "wall",    "path",    "wall",    "path"],
+        ["combat", "path",    "path",    "sr",      "path",    "combat",  "boss",    "path",    "exit"]
       ]
     }
   ]

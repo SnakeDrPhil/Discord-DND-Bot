@@ -29,6 +29,8 @@ COGS = [
     "src.bot.cogs.combat",
     "src.bot.cogs.dungeon",
     "src.bot.cogs.inventory",
+    "src.bot.cogs.shop",
+    "src.bot.cogs.leaderboard",
 ]
 
 

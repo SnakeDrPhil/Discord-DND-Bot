@@ -320,6 +320,7 @@ TILE_EMOJIS = {
     "wall":   "\u2b1b",       # black square
     "sr":     "\U0001f7e3",   # purple circle
     "combat": "\U0001f534",   # red circle
+    "boss":   "\U0001f480",   # skull
     "exit":   "\U0001f6aa",   # door
 }
 FOG_EMOJI = "\u2b1b"          # black square for unexplored
@@ -347,5 +348,5 @@ def render_map(floor_data: dict, visited: list, position: tuple) -> str:
 
 MAP_LEGEND = (
     "\U0001f9d9 You | \u2b1c Path | \u2b1b Wall/Fog\n"
-    "\U0001f7e3 Scenario | \U0001f534 Combat | \U0001f6aa Exit"
+    "\U0001f7e3 Scenario | \U0001f534 Combat | \U0001f480 Boss | \U0001f6aa Exit"
 )

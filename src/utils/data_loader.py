@@ -167,6 +167,14 @@ def get_weapon_by_id(weapon_id: str) -> Optional[dict]:
     return None
 
 
+def get_boss(boss_type: str) -> Optional[dict]:
+    """Return boss enemy data by type."""
+    for e in _load("enemies.json"):
+        if e["type"] == boss_type and e.get("is_boss"):
+            return e
+    return None
+
+
 def get_armor_by_id(armor_id: str) -> Optional[dict]:
     """Return a single armor piece by its ID."""
     for a in _load("armor.json"):

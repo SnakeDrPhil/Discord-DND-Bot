@@ -16,6 +16,7 @@ from src.db.models import (
     get_equipped_items,
     get_inventory,
     get_player,
+    increment_player_stat,
     remove_inventory_item,
     update_combat_session,
     update_player,
@@ -196,6 +197,13 @@ async def _send_result(interaction, player, state, result, flee_damage=0, is_but
             rewards["gold"] += overflow_gold
             await update_player(str(player["discord_id"]),
                                 gold=player["gold"] + rewards["gold"])
+        # Track kills
+        dead_count = sum(1 for e in state["enemies"] if not e["is_alive"])
+        if dead_count > 0:
+            await increment_player_stat(str(player["discord_id"]), "enemies_killed", dead_count)
+        if rewards.get("is_boss"):
+            await increment_player_stat(str(player["discord_id"]), "bosses_killed", 1)
+
         embed = combat_victory_embed(
             player["character_name"], rewards["xp"], rewards["perfect"],
             rewards["gold"], rewards["loot"], events,
@@ -642,7 +650,8 @@ class Combat(commands.Cog):
             return await interaction.response.send_message(embed=embed, view=view)
 
         # Spawn enemies
-        enemies = spawn_enemies(player["level"])
+        floor = player.get("current_floor", 1) or 1
+        enemies = spawn_enemies(player["level"], floor=floor)
         enemies_json = json.dumps(enemies)
 
         await create_combat_session(player["id"], enemies_json)

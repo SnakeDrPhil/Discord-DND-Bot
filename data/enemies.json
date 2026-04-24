@@ -38,5 +38,6 @@
   {"type": "feral_rat", "level": 17, "damage_min": 32, "damage_max": 35, "hp": 100, "xp_reward": 180},
   {"type": "feral_rat", "level": 18, "damage_min": 35, "damage_max": 38, "hp": 105, "xp_reward": 190},
   {"type": "feral_rat", "level": 19, "damage_min": 38, "damage_max": 41, "hp": 110, "xp_reward": 200},
-  {"type": "feral_rat", "level": 20, "damage_min": 41, "damage_max": 44, "hp": 110, "xp_reward": 250}
+  {"type": "feral_rat", "level": 20, "damage_min": 41, "damage_max": 44, "hp": 110, "xp_reward": 250},
+  {"type": "goblin_king", "level": 16, "damage_min": 45, "damage_max": 60, "hp": 500, "xp_reward": 800, "is_boss": true, "name": "Goblin King"}
 ]

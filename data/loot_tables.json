@@ -10,5 +10,9 @@
     {"id": "rat_pelts", "name": "Rat Pelts", "type": "valuable", "gold_min": 2, "gold_max": 5, "description": "A small, tattered pelt from a feral rat."},
     {"id": "sharp_rat_teeth", "name": "Sharp Rat Teeth", "type": "crafting", "effect": "Can be crafted into crude jewelry or used as ingredients in some basic potions.", "description": "Broken-off teeth from a feral rat, sharp enough to be repurposed."},
     {"id": "disease_infested_tail", "name": "Disease-Infested Tail", "type": "crafting", "gold_min": 3, "gold_max": 7, "effect": "Ingredient for poisons or curses. Can be sold for 3-7 Gold.", "description": "A foul, diseased rat tail. Too dangerous to eat, but some potion makers may have a use for it."}
+  ],
+  "goblin_king": [
+    {"id": "kings_treasury", "name": "King's Treasury", "type": "valuable", "gold_min": 50, "gold_max": 150, "description": "A chest filled with the Goblin King's hoard."},
+    {"id": "royal_goblin_crown", "name": "Royal Goblin Crown", "type": "valuable", "gold_min": 75, "gold_max": 200, "description": "A crude but surprisingly valuable crown made of stolen gold."}
   ]
 }
