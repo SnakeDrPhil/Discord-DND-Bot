@@ -206,3 +206,92 @@ async def delete_combat_session(player_id: int) -> None:
         await db.commit()
     finally:
         await db.close()
+
+
+# --- Dungeon Sessions ---
+
+async def create_dungeon_session(
+    player_id: int, floor: int = 1, start_x: int = 0, start_y: int = 0,
+) -> int:
+    """Create a dungeon session. Returns session ID."""
+    db = await get_db()
+    try:
+        visited = json.dumps([[start_x, start_y]])
+        cursor = await db.execute(
+            """INSERT INTO dungeon_sessions (player_id, floor, position_x, position_y, visited_tiles)
+            VALUES (?, ?, ?, ?, ?)""",
+            (player_id, floor, start_x, start_y, visited),
+        )
+        await db.commit()
+        return cursor.lastrowid
+    finally:
+        await db.close()
+
+
+async def get_dungeon_session(player_id: int) -> Optional[dict]:
+    """Fetch active dungeon session by player_id."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "SELECT * FROM dungeon_sessions WHERE player_id = ?", (player_id,)
+        )
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+    finally:
+        await db.close()
+
+
+async def update_dungeon_session(player_id: int, **fields) -> None:
+    """Update dungeon session fields."""
+    if not fields:
+        return
+    set_clause = ", ".join(f"{k} = ?" for k in fields)
+    values = list(fields.values()) + [player_id]
+    db = await get_db()
+    try:
+        await db.execute(
+            f"UPDATE dungeon_sessions SET {set_clause} WHERE player_id = ?", values
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def delete_dungeon_session(player_id: int) -> None:
+    """Delete a dungeon session (on retreat, death, or floor exit)."""
+    db = await get_db()
+    try:
+        await db.execute(
+            "DELETE FROM dungeon_sessions WHERE player_id = ?", (player_id,)
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def get_non_equipped_inventory(player_id: int) -> list:
+    """Get all non-equipped inventory items for death penalty."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "SELECT * FROM inventories WHERE player_id = ? AND equipped = 0",
+            (player_id,),
+        )
+        rows = await cursor.fetchall()
+        return [dict(r) for r in rows]
+    finally:
+        await db.close()
+
+
+async def clear_non_equipped_inventory(player_id: int) -> int:
+    """Remove all non-equipped items. Returns count deleted."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "DELETE FROM inventories WHERE player_id = ? AND equipped = 0",
+            (player_id,),
+        )
+        await db.commit()
+        return cursor.rowcount
+    finally:
+        await db.close()

@@ -155,3 +155,13 @@ def get_floor(floor_number: int) -> Optional[dict]:
         if floor["floor"] == floor_number:
             return floor
     return None
+
+
+# --- Scenarios ---
+
+def get_scenarios(category: Optional[str] = None) -> Union[list, dict]:
+    """Return scenario events, optionally filtered by category."""
+    data = _load("scenarios.json")
+    if category:
+        return data.get(category, [])
+    return data

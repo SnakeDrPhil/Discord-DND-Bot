@@ -27,6 +27,7 @@ COGS = [
     "src.bot.cogs.character",
     "src.bot.cogs.leveling",
     "src.bot.cogs.combat",
+    "src.bot.cogs.dungeon",
 ]
 
 

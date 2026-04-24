@@ -124,6 +124,20 @@ async def _finish_combat(player, state, result):
     await delete_combat_session(player["id"])
 
 
+async def _tick_dungeon_effects_after_combat(player):
+    """Decrement dungeon effects (curses/blessings) after a combat encounter."""
+    from src.db.models import get_dungeon_session, update_dungeon_session
+    dsess = await get_dungeon_session(player["id"])
+    if not dsess:
+        return
+    effects = json.loads(dsess["active_effects"])
+    if not effects:
+        return
+    from src.game.dungeon import tick_dungeon_effects
+    remaining = tick_dungeon_effects(effects)
+    await update_dungeon_session(player["id"], active_effects=json.dumps(remaining))
+
+
 async def _send_result(interaction, player, state, result, flee_damage=0, is_button=False):
     """Send the combat result embed."""
     if result == "victory":
@@ -140,13 +154,30 @@ async def _send_result(interaction, player, state, result, flee_damage=0, is_but
             player["character_name"], rewards["xp"], rewards["perfect"],
             rewards["gold"], rewards["loot"], events,
         )
+        # Tick dungeon effects after victory
+        await _tick_dungeon_effects_after_combat(player)
     elif result == "defeat":
-        await update_player(str(player["discord_id"]),
-                            hp=player["max_hp"], mana=player["max_mana"],
-                            sp=player["max_sp"])
-        embed = combat_defeat_embed()
+        # Check if player is in a dungeon -- handle dungeon death
+        from src.db.models import get_dungeon_session, delete_dungeon_session
+        from src.db.models import clear_non_equipped_inventory
+        dsess = await get_dungeon_session(player["id"])
+        if dsess:
+            items_lost = await clear_non_equipped_inventory(player["id"])
+            await update_player(str(player["discord_id"]),
+                                hp=player["max_hp"], mana=player["max_mana"],
+                                sp=player["max_sp"], in_dungeon=0)
+            await delete_dungeon_session(player["id"])
+            from src.utils.embeds import dungeon_death_embed
+            embed = dungeon_death_embed(items_lost)
+        else:
+            await update_player(str(player["discord_id"]),
+                                hp=player["max_hp"], mana=player["max_mana"],
+                                sp=player["max_sp"])
+            embed = combat_defeat_embed()
     else:  # fled
         embed = combat_flee_embed(flee_damage > 0, flee_damage)
+        # Tick dungeon effects after flee (still counts as a combat)
+        await _tick_dungeon_effects_after_combat(player)
 
     if is_button:
         await interaction.response.edit_message(embed=embed, view=None)

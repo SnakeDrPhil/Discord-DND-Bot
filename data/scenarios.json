@@ -1,0 +1,204 @@
+{
+  "negative": [
+    {
+      "id": "trap_pit",
+      "name": "Pit Trap",
+      "description": "The floor gives way beneath you!",
+      "effect": {"type": "hp_loss", "value": 15},
+      "message": "You fall into a pit trap and take 15 damage!"
+    },
+    {
+      "id": "trap_poison_dart",
+      "name": "Poison Dart Trap",
+      "description": "A dart flies from the wall!",
+      "effect": {"type": "hp_loss", "value": 10},
+      "message": "A poison dart hits you! -10 HP."
+    },
+    {
+      "id": "cursed_shrine",
+      "name": "Cursed Shrine",
+      "description": "You touch a dark altar and feel a chill...",
+      "effect": {"type": "curse"},
+      "message": "A curse falls upon you! One of your stats is reduced for the next 5 combats."
+    },
+    {
+      "id": "ambush",
+      "name": "Ambush!",
+      "description": "Enemies leap from the shadows!",
+      "effect": {"type": "combat", "hp_penalty": 10},
+      "message": "You're ambushed! -10 HP before combat begins!"
+    },
+    {
+      "id": "item_thief",
+      "name": "Goblin Thief",
+      "description": "A sneaky goblin snatches something from your pack!",
+      "effect": {"type": "item_loss"},
+      "message": "A goblin thief stole an item from your inventory!"
+    },
+    {
+      "id": "mana_drain",
+      "name": "Mana Drain",
+      "description": "An arcane ward siphons your magical energy.",
+      "effect": {"type": "mana_loss", "value": 20},
+      "message": "An arcane ward drains 20 Mana!"
+    },
+    {
+      "id": "sp_drain",
+      "name": "Exhausting Hallway",
+      "description": "The air in this corridor is thick and stifling.",
+      "effect": {"type": "sp_loss", "value": 15},
+      "message": "The stifling air saps your stamina! -15 SP."
+    },
+    {
+      "id": "deadly_trap",
+      "name": "Deadly Trap",
+      "description": "A blade swings from the ceiling!",
+      "effect": {"type": "death", "chance": 15},
+      "message": "A deadly blade trap activates!"
+    },
+    {
+      "id": "stat_debuff",
+      "name": "Weakening Fog",
+      "description": "A strange fog fills the room, sapping your strength.",
+      "effect": {"type": "stat_debuff", "stats": ["strength", "dexterity"], "value": 2, "combats": 3},
+      "message": "A weakening fog reduces your Strength and Dexterity by 2 for the next 3 combats!"
+    },
+    {
+      "id": "gold_loss",
+      "name": "Crumbling Floor",
+      "description": "The floor collapses and some of your gold falls into the abyss.",
+      "effect": {"type": "gold_loss", "percent": 10},
+      "message": "Some of your gold falls into a chasm! Lost 10% of your gold."
+    }
+  ],
+  "positive": [
+    {
+      "id": "healing_spring",
+      "name": "Healing Spring",
+      "description": "You discover a glowing spring of clear water.",
+      "effect": {"type": "hp_gain", "percent": 30},
+      "message": "You drink from the healing spring! Restored 30% of your max HP."
+    },
+    {
+      "id": "mana_well",
+      "name": "Mana Well",
+      "description": "An ancient well pulses with arcane energy.",
+      "effect": {"type": "mana_gain", "percent": 40},
+      "message": "You draw power from the mana well! Restored 40% of your max Mana."
+    },
+    {
+      "id": "stamina_shrine",
+      "name": "Stamina Shrine",
+      "description": "A warrior's shrine invigorates your body.",
+      "effect": {"type": "sp_gain", "percent": 50},
+      "message": "The shrine restores your stamina! Restored 50% of your max SP."
+    },
+    {
+      "id": "treasure_chest",
+      "name": "Treasure Chest",
+      "description": "You find an unlocked treasure chest!",
+      "effect": {"type": "gold_gain", "min": 15, "max": 40},
+      "message": "You found gold in a treasure chest!"
+    },
+    {
+      "id": "potion_cache",
+      "name": "Potion Cache",
+      "description": "A shelf of potions sits untouched in the corner.",
+      "effect": {"type": "item_gain", "item_pool": ["minor_healing_potion", "mana_potion", "stamina_tonic"]},
+      "message": "You found a potion!"
+    },
+    {
+      "id": "blessing_strength",
+      "name": "Warrior's Blessing",
+      "description": "A spectral warrior salutes you and grants you strength.",
+      "effect": {"type": "blessing", "stat": "strength", "value": 5, "unit": "percent", "combats": 3},
+      "message": "Warrior's Blessing! +5% Strength for the next 3 combats."
+    },
+    {
+      "id": "blessing_dexterity",
+      "name": "Thief's Blessing",
+      "description": "A shadow whispers secrets of agility to you.",
+      "effect": {"type": "blessing", "stat": "dexterity", "value": 5, "unit": "percent", "combats": 3},
+      "message": "Thief's Blessing! +5% Dexterity for the next 3 combats."
+    },
+    {
+      "id": "full_restore",
+      "name": "Sacred Fountain",
+      "description": "A radiant fountain fully restores your body and mind.",
+      "effect": {"type": "full_restore"},
+      "message": "The sacred fountain fully restores your HP, Mana, and SP!"
+    },
+    {
+      "id": "xp_bonus",
+      "name": "Ancient Tome",
+      "description": "You read an ancient tome of knowledge.",
+      "effect": {"type": "xp_gain", "min": 20, "max": 50},
+      "message": "You gained knowledge from the ancient tome!"
+    },
+    {
+      "id": "rare_item",
+      "name": "Hidden Stash",
+      "description": "Behind a loose stone, you find a hidden stash!",
+      "effect": {"type": "item_gain", "item_pool": ["herbal_remedy", "arcane_elixir", "energizing_elixir"]},
+      "message": "You found a rare item in a hidden stash!"
+    }
+  ],
+  "neutral": [
+    {
+      "id": "empty_room",
+      "name": "Empty Room",
+      "description": "The room is dusty and abandoned. Nothing of note here.",
+      "effect": {"type": "none"},
+      "message": "You find an empty room. Nothing happens."
+    },
+    {
+      "id": "old_bones",
+      "name": "Old Bones",
+      "description": "Scattered bones of a previous adventurer lie on the ground.",
+      "effect": {"type": "none"},
+      "message": "You find the remains of a fallen adventurer. A sobering sight."
+    },
+    {
+      "id": "strange_writing",
+      "name": "Strange Writing",
+      "description": "Ancient runes are carved into the walls. You can't read them.",
+      "effect": {"type": "none"},
+      "message": "Strange runes cover the walls. Their meaning is lost to time."
+    },
+    {
+      "id": "echoing_chamber",
+      "name": "Echoing Chamber",
+      "description": "Your footsteps echo loudly through this vast chamber.",
+      "effect": {"type": "none"},
+      "message": "Your footsteps echo through a vast, empty chamber."
+    },
+    {
+      "id": "dripping_water",
+      "name": "Dripping Water",
+      "description": "Water drips steadily from the ceiling into a stagnant pool.",
+      "effect": {"type": "none"},
+      "message": "Water drips from the ceiling. The sound is oddly calming."
+    },
+    {
+      "id": "faded_mural",
+      "name": "Faded Mural",
+      "description": "A once-beautiful mural decorates the wall, now barely visible.",
+      "effect": {"type": "none"},
+      "message": "A faded mural depicts an ancient battle. The details are lost."
+    },
+    {
+      "id": "cold_breeze",
+      "name": "Cold Breeze",
+      "description": "A cold breeze blows through a crack in the wall.",
+      "effect": {"type": "none"},
+      "message": "A cold breeze blows through. You shiver but press on."
+    },
+    {
+      "id": "minor_gold",
+      "name": "Loose Coins",
+      "description": "A few coins glint on the floor.",
+      "effect": {"type": "gold_gain", "min": 1, "max": 5},
+      "message": "You pick up a few loose coins from the floor."
+    }
+  ]
+}

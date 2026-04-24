@@ -90,6 +90,11 @@ BURN_DAMAGE_PER_TURN = 5
 BLEED_DAMAGE_PER_TURN = 3
 POISON_DAMAGE_PER_TURN = 4
 
+# --- Dungeon ---
+CURSE_STAT_PENALTY = 10      # percent reduction per curse
+CURSE_DURATION = 5           # combats
+MAX_CURSES = 3
+
 # --- Stats List ---
 ALL_STATS = [
     "strength", "dexterity", "intelligence", "agility",

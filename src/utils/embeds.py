@@ -387,3 +387,126 @@ def combat_flee_embed(took_damage: bool, damage: int = 0) -> discord.Embed:
         description=desc,
         color=discord.Color.orange(),
     )
+
+
+# ── Dungeon Embeds ─────────────────────────────────────────────────
+
+def dungeon_enter_embed(player_name: str, floor: int, map_str: str,
+                        legend: str) -> discord.Embed:
+    """Embed shown when entering the dungeon."""
+    embed = discord.Embed(
+        title=f"Floor {floor}",
+        description=f"**{player_name}** enters the dungeon.\n\n{map_str}",
+        color=discord.Color.dark_grey(),
+    )
+    embed.add_field(name="Legend", value=legend, inline=False)
+    return embed
+
+
+def dungeon_map_embed(player: dict, floor: int, map_str: str, legend: str,
+                      tiles_explored: int, total_passable: int) -> discord.Embed:
+    """Map display embed with player status."""
+    embed = discord.Embed(
+        title=f"Floor {floor} - Map",
+        description=map_str,
+        color=discord.Color.dark_grey(),
+    )
+    embed.add_field(
+        name="Status",
+        value=(
+            f"HP: {player['hp']}/{player['max_hp']} | "
+            f"Mana: {player['mana']}/{player['max_mana']} | "
+            f"SP: {player['sp']}/{player['max_sp']}"
+        ),
+        inline=False,
+    )
+    embed.add_field(
+        name="Explored",
+        value=f"{tiles_explored}/{total_passable} tiles",
+        inline=True,
+    )
+    embed.add_field(name="Legend", value=legend, inline=False)
+    return embed
+
+
+def dungeon_move_embed(player: dict, floor: int, map_str: str,
+                       move_msg: str, regen_msg: str) -> discord.Embed:
+    """Embed after movement with map and result."""
+    embed = discord.Embed(
+        title=f"Floor {floor}",
+        description=map_str,
+        color=discord.Color.dark_grey(),
+    )
+    embed.add_field(name="Movement", value=move_msg, inline=False)
+    if regen_msg:
+        embed.add_field(name="Regeneration", value=regen_msg, inline=True)
+    embed.add_field(
+        name="Resources",
+        value=(
+            f"HP: {player['hp']}/{player['max_hp']} | "
+            f"Mana: {player['mana']}/{player['max_mana']} | "
+            f"SP: {player['sp']}/{player['max_sp']}"
+        ),
+        inline=False,
+    )
+    return embed
+
+
+def scenario_embed(event: dict, category: str, messages: list) -> discord.Embed:
+    """Scenario result embed."""
+    colors = {
+        "negative": discord.Color.red(),
+        "positive": discord.Color.green(),
+        "neutral": discord.Color.light_grey(),
+    }
+    embed = discord.Embed(
+        title=event["name"],
+        description=event["description"],
+        color=colors.get(category, discord.Color.greyple()),
+    )
+    if messages:
+        embed.add_field(name="Outcome", value="\n".join(messages), inline=False)
+    return embed
+
+
+def floor_complete_embed(player_name: str, floor: int,
+                         tiles_explored: int) -> discord.Embed:
+    """Embed for reaching the exit tile."""
+    return discord.Embed(
+        title="Floor Complete!",
+        description=(
+            f"**{player_name}** cleared Floor {floor}!\n"
+            f"Tiles explored: {tiles_explored}\n\n"
+            f"Use `/enter` to descend to Floor {floor + 1}."
+        ),
+        color=discord.Color.gold(),
+    )
+
+
+def dungeon_death_embed(items_lost: int) -> discord.Embed:
+    """Embed for dying in the dungeon."""
+    embed = discord.Embed(
+        title="You Have Fallen!",
+        description=(
+            "Your dungeon run has ended.\n"
+            "You keep your XP, level, and equipped items.\n"
+            "Your wounds have been healed."
+        ),
+        color=discord.Color.dark_red(),
+    )
+    if items_lost > 0:
+        embed.add_field(
+            name="Items Lost",
+            value=f"{items_lost} unequipped item(s) lost.",
+            inline=False,
+        )
+    return embed
+
+
+def dungeon_retreat_embed(player_name: str) -> discord.Embed:
+    """Embed for voluntary retreat."""
+    return discord.Embed(
+        title="Retreated",
+        description=f"**{player_name}** left the dungeon safely. All items and XP kept.",
+        color=discord.Color.orange(),
+    )
