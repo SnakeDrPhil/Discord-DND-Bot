@@ -149,3 +149,60 @@ async def remove_inventory_item(inventory_id: int) -> None:
         await db.commit()
     finally:
         await db.close()
+
+
+# --- Combat Sessions ---
+
+async def create_combat_session(player_id: int, enemies: str) -> int:
+    """Create a combat session. enemies is a JSON string."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "INSERT INTO combat_sessions (player_id, enemies) VALUES (?, ?)",
+            (player_id, enemies),
+        )
+        await db.commit()
+        return cursor.lastrowid
+    finally:
+        await db.close()
+
+
+async def get_combat_session(player_id: int) -> Optional[dict]:
+    """Fetch active combat session by player_id."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "SELECT * FROM combat_sessions WHERE player_id = ?", (player_id,)
+        )
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+    finally:
+        await db.close()
+
+
+async def update_combat_session(player_id: int, **fields) -> None:
+    """Update combat session fields."""
+    if not fields:
+        return
+    set_clause = ", ".join(f"{k} = ?" for k in fields)
+    values = list(fields.values()) + [player_id]
+    db = await get_db()
+    try:
+        await db.execute(
+            f"UPDATE combat_sessions SET {set_clause} WHERE player_id = ?", values
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def delete_combat_session(player_id: int) -> None:
+    """Delete a combat session (on victory/defeat/flee)."""
+    db = await get_db()
+    try:
+        await db.execute(
+            "DELETE FROM combat_sessions WHERE player_id = ?", (player_id,)
+        )
+        await db.commit()
+    finally:
+        await db.close()

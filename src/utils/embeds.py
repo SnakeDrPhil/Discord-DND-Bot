@@ -273,3 +273,117 @@ def talent_list_embed(
 
     embed.add_field(name="\u200b", value="\n".join(lines) if lines else "No talents.", inline=False)
     return embed
+
+
+# ── Combat Embeds ───────────────────────────────────────────────────
+
+def _resource_bar(current: int, maximum: int, length: int = 10) -> str:
+    if maximum <= 0:
+        return "\u2591" * length
+    ratio = min(max(current, 0) / maximum, 1.0)
+    filled = round(ratio * length)
+    return "\u2588" * filled + "\u2591" * (length - filled)
+
+
+def combat_embed(
+    player: dict, session: dict, enemies: list, log_entries: list,
+    attacks_left: int, buffs_left: int, items_left: int,
+) -> discord.Embed:
+    """Build the combat status embed."""
+    color = CLASS_COLORS.get(player["class"], discord.Color.greyple())
+    embed = discord.Embed(
+        title=f"Combat - Turn {session['turn_number']}",
+        color=color,
+    )
+
+    # Player status
+    pstatus = (
+        f"HP: {_resource_bar(player['hp'], player['max_hp'])} {player['hp']}/{player['max_hp']}\n"
+        f"Mana: {_resource_bar(player['mana'], player['max_mana'])} {player['mana']}/{player['max_mana']}\n"
+        f"SP: {_resource_bar(player['sp'], player['max_sp'])} {player['sp']}/{player['max_sp']}"
+    )
+    buffs = json.loads(session["player_buffs"]) if isinstance(session["player_buffs"], str) else session["player_buffs"]
+    if buffs:
+        pstatus += "\nBuffs: " + ", ".join(f"{b['type']}({b['remaining_turns']}t)" for b in buffs)
+    debuffs = json.loads(session["player_debuffs"]) if isinstance(session["player_debuffs"], str) else session["player_debuffs"]
+    if debuffs:
+        pstatus += "\nDebuffs: " + ", ".join(f"{d['type']}({d['remaining_turns']}t)" for d in debuffs)
+    embed.add_field(name=player["character_name"], value=pstatus, inline=True)
+
+    # Enemy status
+    enemy_debuffs = json.loads(session["enemy_debuffs"]) if isinstance(session["enemy_debuffs"], str) else session["enemy_debuffs"]
+    estatus = ""
+    for e in enemies:
+        if not e["is_alive"]:
+            estatus += f"~~{e['name']} (Lv.{e['level']})~~ DEAD\n"
+            continue
+        estatus += f"{e['name']} (Lv.{e['level']}): {_resource_bar(e['hp'], e['max_hp'])} {e['hp']}/{e['max_hp']}\n"
+        edbs = [d for d in enemy_debuffs if d.get("enemy_id") == e["id"]]
+        if edbs:
+            estatus += f"  [{', '.join(d['type'] for d in edbs)}]\n"
+    embed.add_field(name="Enemies", value=estatus.strip() or "None", inline=True)
+
+    # Actions
+    a = "avail" if attacks_left > 0 else "used"
+    b = "avail" if buffs_left > 0 else "used"
+    it = "avail" if items_left > 0 else "used"
+    embed.add_field(name="Actions", value=f"Attack: {a} | Buff: {b} | Item: {it}", inline=False)
+
+    # Combat log
+    if log_entries:
+        log_text = "\n".join(f"> {e['message']}" for e in log_entries[-5:])
+        embed.add_field(name="Combat Log", value=log_text, inline=False)
+
+    return embed
+
+
+def combat_victory_embed(
+    player_name: str, xp: int, perfect: bool, gold: int,
+    loot: list, level_events: list,
+) -> discord.Embed:
+    embed = discord.Embed(title="Victory!", color=discord.Color.green())
+    desc = f"**{player_name}** won the battle!"
+    if perfect:
+        desc += " (Perfect encounter!)"
+    embed.description = desc
+
+    rewards = f"XP: +{xp}"
+    if perfect:
+        rewards += " (includes +10% bonus)"
+    if gold > 0:
+        rewards += f"\nGold: +{gold}"
+    if loot:
+        for item in loot:
+            rewards += f"\nLoot: {item['name']}"
+    embed.add_field(name="Rewards", value=rewards, inline=False)
+
+    if level_events:
+        final = level_events[-1]["new_level"]
+        pts = sum(e["stat_points_awarded"] for e in level_events)
+        lvl_text = f"Reached Level {final}! +{pts} stat points"
+        if any(e["skill_unlocked"] for e in level_events):
+            lvl_text += "\nNew skill slot! Use `/skills`"
+        if any(e["talent_unlocked"] for e in level_events):
+            lvl_text += "\nNew talent slot! Use `/talents`"
+        embed.add_field(name="Level Up!", value=lvl_text, inline=False)
+
+    return embed
+
+
+def combat_defeat_embed() -> discord.Embed:
+    return discord.Embed(
+        title="Defeated!",
+        description="You were slain in combat. Your wounds have been healed.",
+        color=discord.Color.red(),
+    )
+
+
+def combat_flee_embed(took_damage: bool, damage: int = 0) -> discord.Embed:
+    desc = "You fled from combat. No XP or loot gained."
+    if took_damage:
+        desc += f"\nYou took {damage} damage while fleeing!"
+    return discord.Embed(
+        title="Escaped!",
+        description=desc,
+        color=discord.Color.orange(),
+    )
